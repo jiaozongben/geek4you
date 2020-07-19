@@ -1,148 +1,114 @@
 package com.gk4u.rss.backend;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.dropwizard.Configuration;
-import io.dropwizard.db.DataSourceFactory;
 import lombok.Getter;
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.cache.CacheType;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.ResourceBundle;
 
+/**
+ * 授权服务器配置
+ *
+ * @author liugh
+ */
+@Configuration
 @Getter
-public class CommaFeedConfiguration extends Configuration {
+public class CommaFeedConfiguration {
 
-	public static enum CacheType {
-		NOOP, REDIS
-	}
 
-	private ResourceBundle bundle;
+    @NotNull
+    @NotBlank
+    @Valid
+    private String publicUrl;
 
-	public CommaFeedConfiguration() {
-		bundle = ResourceBundle.getBundle("application");
-	}
+    @NotNull
+    @Valid
+    private Boolean allowRegistrations;
 
-	@Valid
-	@NotNull
-	@JsonProperty("database")
-	private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+    @NotNull
+    @Valid
+    private Boolean createDemoAccount;
 
-//	@Valid
-//	@NotNull
-//	@JsonProperty("redis")
-//	private RedisPoolFactory redisPoolFactory = new RedisPoolFactory();
+    private String googleAnalyticsTrackingCode;
 
-//	@Valid
-//	@NotNull
-//	@JsonProperty("session")
-//	private SessionHandlerFactory SessionHandlerFactory = new SessionHandlerFactory();
+    private String googleAuthKey;
 
-	@Valid
-	@NotNull
-	@JsonProperty("app")
-	private ApplicationSettings applicationSettings;
+    @NotNull
+    @Min(1)
+    @Valid
+    private Integer backgroundThreads;
 
-	public String getVersion() {
-		return bundle.getString("version");
-	}
+    @NotNull
+    @Min(1)
+    @Valid
+    private Integer databaseUpdateThreads;
 
-	public String getGitCommit() {
-		return bundle.getString("git.commit");
-	}
+    private String smtpHost;
+    private int smtpPort;
+    private boolean smtpTls;
+    private String smtpUserName;
+    private String smtpPassword;
+    private String smtpFromAddress;
 
-	@Getter
-	public static class ApplicationSettings {
-		@NotNull
-		@NotBlank
-		@Valid
-		private String publicUrl;
+    private boolean graphiteEnabled;
+    private String graphitePrefix;
+    private String graphiteHost;
+    private int graphitePort;
+    private int graphiteInterval;
 
-		@NotNull
-		@Valid
-		private Boolean allowRegistrations;
+    @NotNull
+    @Valid
+    private Boolean heavyLoad;
 
-		@NotNull
-		@Valid
-		private Boolean createDemoAccount;
+    @NotNull
+    @Valid
+    private Boolean pubsubhubbub;
 
-		private String googleAnalyticsTrackingCode;
+    @NotNull
+    @Valid
+    private Boolean imageProxyEnabled;
 
-		private String googleAuthKey;
+    @NotNull
+    @Min(0)
+    @Valid
+    private Integer queryTimeout;
 
-		@NotNull
-		@Min(1)
-		@Valid
-		private Integer backgroundThreads;
+    @NotNull
+    @Min(0)
+    @Valid
+    private Integer keepStatusDays;
 
-		@NotNull
-		@Min(1)
-		@Valid
-		private Integer databaseUpdateThreads;
+    @NotNull
+    @Min(0)
+    @Valid
+    private Integer maxFeedCapacity;
 
-		private String smtpHost;
-		private int smtpPort;
-		private boolean smtpTls;
-		private String smtpUserName;
-		private String smtpPassword;
-		private String smtpFromAddress;
+    @NotNull
+    @Min(0)
+    @Valid
+    private Integer refreshIntervalMinutes;
 
-		private boolean graphiteEnabled;
-		private String graphitePrefix;
-		private String graphiteHost;
-		private int graphitePort;
-		private int graphiteInterval;
+    @NotNull
+    @Valid
+    private CacheType cache;
 
-		@NotNull
-		@Valid
-		private Boolean heavyLoad;
+    @Valid
+    private String announcement;
 
-		@NotNull
-		@Valid
-		private Boolean pubsubhubbub;
+    @Value("${app.userAgent:chrome}")
+    private String userAgent;
 
-		@NotNull
-		@Valid
-		private Boolean imageProxyEnabled;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer queryTimeout;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer keepStatusDays;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer maxFeedCapacity;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer refreshIntervalMinutes;
-
-		@NotNull
-		@Valid
-		private CacheType cache;
-
-		@Valid
-		private String announcement;
-
-		private String userAgent;
-
-		public Date getUnreadThreshold() {
-			int keepStatusDays = getKeepStatusDays();
-			return keepStatusDays > 0 ? DateUtils.addDays(new Date(), -1 * keepStatusDays) : null;
-		}
-
-	}
-
+    public Date getUnreadThreshold() {
+        int keepStatusDays = getKeepStatusDays();
+        return keepStatusDays > 0 ? DateUtils.addDays(new Date(), -1 * keepStatusDays) : null;
+    }
 }

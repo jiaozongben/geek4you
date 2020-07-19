@@ -62,9 +62,9 @@ public class HttpGetter {
 
 	@Inject
 	public HttpGetter(CommaFeedConfiguration config) {
-		this.userAgent = config.getApplicationSettings().getUserAgent();
+		this.userAgent = config.getUserAgent();
 		if (this.userAgent == null) {
-			this.userAgent = String.format("CommaFeed/%s (https://github.com/Athou/commafeed)", config.getVersion());
+			this.userAgent = String.format("CommaFeed/%s (https://github.com/Athou/commafeed)", "1.0.0");
 		}
 	}
 
@@ -221,6 +221,7 @@ public class HttpGetter {
 
 	public static void main(String[] args) throws Exception {
 		CommaFeedConfiguration config = new CommaFeedConfiguration();
+
 		HttpGetter getter = new HttpGetter(config);
 		HttpResult result = getter.getBinary("https://sourceforge.net/projects/mpv-player-windows/rss", 30000);
 		System.out.println(new String(result.content));
