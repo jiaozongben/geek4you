@@ -16,10 +16,14 @@
 			<artifactId>mybatisplus-spring-boot-starter</artifactId>
 			<version>1.0.5</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -41,6 +45,12 @@
 <!--			<artifactId>spring-security-oauth2</artifactId>-->
 <!--			<version>2.3.3.RELEASE</version>-->
 <!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			   <!--<scope>provided</scope>-->
+		</dependency>
+
 <!--		<dependency>-->
 <!--			<groupId>org.springframework.cloud</groupId>-->
 <!--			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->

@@ -11,8 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  *
  */
 
-@SpringBootApplication
-
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class RssApplication {
 
 	public static void main(String[] args) {
