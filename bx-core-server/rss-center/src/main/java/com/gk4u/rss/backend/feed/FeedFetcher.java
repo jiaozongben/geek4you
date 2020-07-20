@@ -30,8 +30,10 @@ public class FeedFetcher {
         log.debug("Fetching feed {}", feedUrl);
         FetchedFeed fetchedFeed = null;
         CommaFeedConfiguration commaFeedConfiguration = new CommaFeedConfiguration();
-        getter = new HttpGetter(commaFeedConfiguration);
-        parser = new  FeedParser();
+        if (null == getter)
+            getter = new HttpGetter(commaFeedConfiguration);
+        if (null == parser)
+            parser = new FeedParser();
 
         int timeout = 20000;
 
@@ -100,7 +102,7 @@ public class FeedFetcher {
         url = org.apache.commons.lang3.StringUtils.trimToEmpty(url);
 //        url = prependHttp(url);
         try {
-            FetchedFeed feed =  fetch(url, true, null, null, null, null);
+            FetchedFeed feed = fetch(url, true, null, null, null, null);
             info = new FeedInfo();
             info.setUrl(feed.getUrlAfterRedirect());
             info.setTitle(feed.getTitle());
@@ -111,7 +113,8 @@ public class FeedFetcher {
         }
 
         System.out.println(info);
-     }
+    }
+
     private String prependHttp(String url) {
         if (!url.startsWith("http")) {
             url = "http://" + url;
