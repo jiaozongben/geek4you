@@ -1,8 +1,9 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.backend.dao.FeedEntryContentDAO;
-import com.commafeed.backend.feed.FeedUtils;
-import com.commafeed.backend.model.FeedEntryContent;
+
+import com.gk4u.rss.backend.dao.FeedEntryContentDAO;
+import com.gk4u.rss.backend.feed.FeedUtils;
+import com.gk4u.rss.backend.model.FeedEntryContent;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;

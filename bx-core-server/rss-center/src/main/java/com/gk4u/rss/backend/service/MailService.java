@@ -1,8 +1,8 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.CommaFeedConfiguration;
-import com.commafeed.CommaFeedConfiguration.ApplicationSettings;
-import com.commafeed.backend.model.User;
+
+import com.gk4u.rss.backend.CommaFeedConfiguration;
+import com.gk4u.rss.backend.model.User;
 import lombok.RequiredArgsConstructor;
 
 import javax.inject.Inject;
@@ -25,7 +25,7 @@ public class MailService {
 
 	public void sendMail(User user, String subject, String content) throws Exception {
 
-		ApplicationSettings settings = config;
+		CommaFeedConfiguration settings = config;
 
 		final String username = settings.getSmtpUserName();
 		final String password = settings.getSmtpPassword();

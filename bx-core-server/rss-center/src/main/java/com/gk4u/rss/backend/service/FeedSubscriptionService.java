@@ -1,19 +1,20 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.CommaFeedConfiguration;
-import com.commafeed.backend.cache.CacheService;
-import com.commafeed.backend.dao.FeedEntryStatusDAO;
-import com.commafeed.backend.dao.FeedSubscriptionDAO;
-import com.commafeed.backend.feed.FeedQueues;
-import com.commafeed.backend.feed.FeedUtils;
-import com.commafeed.backend.model.*;
-import com.commafeed.frontend.model.UnreadCount;
+import com.gk4u.rss.backend.CommaFeedConfiguration;
+import com.gk4u.rss.backend.cache.CacheService;
+import com.gk4u.rss.backend.dao.FeedEntryStatusDAO;
+import com.gk4u.rss.backend.dao.FeedSubscriptionDAO;
+import com.gk4u.rss.backend.feed.FeedQueues;
+import com.gk4u.rss.backend.feed.FeedUtils;
+import com.gk4u.rss.backend.model.*;
+import com.gk4u.rss.frontend.model.UnreadCount;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

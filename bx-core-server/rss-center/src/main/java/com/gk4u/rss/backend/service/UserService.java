@@ -1,11 +1,12 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.CommaFeedConfiguration;
-import com.commafeed.backend.dao.*;
-import com.commafeed.backend.model.User;
-import com.commafeed.backend.model.UserRole;
-import com.commafeed.backend.model.UserRole.Role;
-import com.commafeed.backend.service.internal.PostLoginActivities;
+
+import com.gk4u.rss.backend.CommaFeedConfiguration;
+import com.gk4u.rss.backend.dao.*;
+import com.gk4u.rss.backend.model.User;
+import com.gk4u.rss.backend.model.UserRole;
+import com.gk4u.rss.backend.model.UserRole.Role;
+import com.gk4u.rss.backend.service.internal.PostLoginActivities;
 import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -109,7 +110,7 @@ public class UserService {
 		user.setSalt(salt);
 		user.setPassword(encryptionService.getEncryptedPassword(password, salt));
 		userDAO.saveOrUpdate(user);
-		for (Role role : roles) {
+		for (UserRole.Role role : roles) {
 			userRoleDAO.saveOrUpdate(new UserRole(user, role));
 		}
 		return user;

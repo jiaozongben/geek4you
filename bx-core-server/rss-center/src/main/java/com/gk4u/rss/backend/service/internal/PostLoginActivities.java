@@ -1,9 +1,10 @@
 package com.gk4u.rss.backend.service.internal;
 
-import com.commafeed.CommaFeedConfiguration;
-import com.commafeed.backend.dao.UserDAO;
-import com.commafeed.backend.model.User;
-import com.commafeed.backend.service.FeedSubscriptionService;
+
+import com.gk4u.rss.backend.CommaFeedConfiguration;
+import com.gk4u.rss.backend.dao.UserDAO;
+import com.gk4u.rss.backend.model.User;
+import com.gk4u.rss.backend.service.FeedSubscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 

@@ -1,10 +1,11 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.backend.dao.FeedDAO;
-import com.commafeed.backend.favicon.AbstractFaviconFetcher;
-import com.commafeed.backend.favicon.AbstractFaviconFetcher.Favicon;
-import com.commafeed.backend.feed.FeedUtils;
-import com.commafeed.backend.model.Feed;
+
+import com.gk4u.rss.backend.dao.FeedDAO;
+import com.gk4u.rss.backend.favicon.AbstractFaviconFetcher;
+import com.gk4u.rss.backend.favicon.AbstractFaviconFetcher.Favicon;
+import com.gk4u.rss.backend.feed.FeedUtils;
+import com.gk4u.rss.backend.model.Feed;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 

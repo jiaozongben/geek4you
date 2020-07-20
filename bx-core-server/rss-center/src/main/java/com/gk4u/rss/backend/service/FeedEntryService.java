@@ -1,14 +1,15 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.backend.cache.CacheService;
-import com.commafeed.backend.dao.FeedEntryDAO;
-import com.commafeed.backend.dao.FeedEntryStatusDAO;
-import com.commafeed.backend.dao.FeedSubscriptionDAO;
-import com.commafeed.backend.feed.FeedEntryKeyword;
-import com.commafeed.backend.model.FeedEntry;
-import com.commafeed.backend.model.FeedEntryStatus;
-import com.commafeed.backend.model.FeedSubscription;
-import com.commafeed.backend.model.User;
+
+import com.gk4u.rss.backend.cache.CacheService;
+import com.gk4u.rss.backend.dao.FeedEntryDAO;
+import com.gk4u.rss.backend.dao.FeedEntryStatusDAO;
+import com.gk4u.rss.backend.dao.FeedSubscriptionDAO;
+import com.gk4u.rss.backend.feed.FeedEntryKeyword;
+import com.gk4u.rss.backend.model.FeedEntry;
+import com.gk4u.rss.backend.model.FeedEntryStatus;
+import com.gk4u.rss.backend.model.FeedSubscription;
+import com.gk4u.rss.backend.model.User;
 import lombok.RequiredArgsConstructor;
 
 import javax.inject.Inject;

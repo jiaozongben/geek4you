@@ -1,8 +1,8 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.backend.dao.*;
-import com.commafeed.backend.dao.FeedEntryDAO.FeedCapacity;
-import com.commafeed.backend.model.Feed;
+
+import com.gk4u.rss.backend.dao.*;
+import com.gk4u.rss.backend.model.Feed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
@@ -68,13 +68,13 @@ public class DatabaseCleaningService {
 	public long cleanEntriesForFeedsExceedingCapacity(final int maxFeedCapacity) {
 		long total = 0;
 		while (true) {
-			List<FeedCapacity> feeds = UnitOfWork.call(sessionFactory,
+			List<FeedEntryDAO.FeedCapacity> feeds = UnitOfWork.call(sessionFactory,
 					() -> feedEntryDAO.findFeedsExceedingCapacity(maxFeedCapacity, BATCH_SIZE));
 			if (feeds.isEmpty()) {
 				break;
 			}
 
-			for (final FeedCapacity feed : feeds) {
+			for (final FeedEntryDAO.FeedCapacity feed : feeds) {
 				long remaining = feed.getCapacity() - maxFeedCapacity;
 				do {
 					final long rem = remaining;

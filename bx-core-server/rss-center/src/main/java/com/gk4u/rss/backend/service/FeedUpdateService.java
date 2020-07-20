@@ -1,9 +1,8 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.backend.dao.FeedEntryDAO;
-import com.commafeed.backend.dao.FeedEntryStatusDAO;
-import com.commafeed.backend.model.*;
-import com.commafeed.backend.service.FeedEntryFilteringService.FeedEntryFilterException;
+
+import com.gk4u.rss.backend.dao.FeedEntryDAO;
+import com.gk4u.rss.backend.dao.FeedEntryStatusDAO;
 import com.gk4u.rss.backend.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

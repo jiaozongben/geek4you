@@ -1,6 +1,7 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.backend.model.FeedEntry;
+
+import com.gk4u.rss.backend.model.FeedEntry;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.jexl2.*;
 import org.apache.commons.jexl2.introspection.JexlMethod;

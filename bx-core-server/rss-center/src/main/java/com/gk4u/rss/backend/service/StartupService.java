@@ -1,10 +1,10 @@
 package com.gk4u.rss.backend.service;
 
-import com.commafeed.CommaFeedApplication;
-import com.commafeed.CommaFeedConfiguration;
-import com.commafeed.backend.dao.UnitOfWork;
-import com.commafeed.backend.dao.UserDAO;
-import com.commafeed.backend.model.UserRole.Role;
+
+import com.gk4u.rss.backend.CommaFeedConfiguration;
+import com.gk4u.rss.backend.dao.UnitOfWork;
+import com.gk4u.rss.backend.dao.UserDAO;
+import com.gk4u.rss.backend.model.UserRole;
 import io.dropwizard.lifecycle.Managed;
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -71,15 +71,15 @@ public class StartupService implements Managed {
 
 	private void initialData() {
 		log.info("Populating database with default values");
-		try {
-			userService.register(CommaFeedApplication.USERNAME_ADMIN, "admin", "admin@commafeed.com", Arrays.asList(Role.ADMIN, Role.USER),
-					true);
-			if (config.getCreateDemoAccount()) {
-				userService.register(CommaFeedApplication.USERNAME_DEMO, "demo", "demo@commafeed.com", Arrays.asList(Role.USER), true);
-			}
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
-		}
+//		try {
+//			userService.register(CommaFeedApplication.USERNAME_ADMIN, "admin", "admin@commafeed.com", Arrays.asList(UserRole.Role.ADMIN, UserRole.Role.USER),
+//					true);
+//			if (config.getCreateDemoAccount()) {
+//				userService.register(CommaFeedApplication.USERNAME_DEMO, "demo", "demo@commafeed.com", Arrays.asList(UserRole.Role.USER), true);
+//			}
+//		} catch (Exception e) {
+//			log.error(e.getMessage(), e);
+//		}
 	}
 
 	@Override
