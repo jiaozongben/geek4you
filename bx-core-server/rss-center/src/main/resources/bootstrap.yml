@@ -1,234 +1,234 @@
-bx:
-  ip: 192.168.0.190
-  nacos:
-    server-addr: 127.0.0.1:8848
-  swagger:
-    enabled: true
-    title: 用户认证中心
-    description: 用户认证中心接口文档
-    version: 1.0
-    base-package: com.cloud.user.controller
-
-server:
-  port: 8000
-spring:
-  application:
-    name: user-center
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${bx.ip}:3306/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
-    username: root
-    password: root
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall,slf4j
-    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-    useGlobalDataSourceStat: true
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 20
-      connection-test-query: SELECT 1
-  #  rabbitmq:
-  #    host: ${bx.ip}
-  #    port: 5672
-  #    username: cloud-dev
-  #    password: cloud-dev
-  #    virtual-host: /
-#  redis:
-#    host: ${bx.ip}
-#    port: 6379
-#    password:
-#    timeout: 10s
-#    lettuce:
-#      pool:
-#        min-idle: 0
-#        max-idle: 8
-#        max-active: 8
-#        max-wait: -1ms
-  mvc:
-    servlet:
-      load-on-startup: 1
-  aop:
-    proxy-target-class: true
-  zipkin:
-    discovery-client-enabled: false
-  #      base-url: http://localhost:9411
-  #      enabled: true
-  #      sender:
-  #        type: web
-  cloud:
-    nacos:
-      config:
-        server-addr: ${bx.nacos.server-addr}
-        file-extension: yml
-        shared-dataids: common.yml
-        refreshable-dataids: common.yml
-      discovery:
-        server-addr: ${bx.nacos.server-addr}
-
-access_token:
-  store-jwt: false
-  jwt-signing-key: liugh=$==+_+%0%:)(:)
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
-mybatis-plus:
-  mapper-locations: classpath:/mybatis-mappers/*Mapper.xml
-  typeAliasesPackage: com.cloud.model.user
-
-
-logging:
-  level:
-    root: info
-    com.cloud: debug
-  file: logs/${spring.application.name}.log
-
-
-
-# CommaFeed settings
-# ------------------
-app:
-  # url used to access commafeed
-  publicUrl: http://localhost:8082/
-
-  # wether to allow user registrations
-  allowRegistrations: true
-
-  # create a demo account the first time the app starts
-  createDemoAccount: false
-
-  # put your google analytics tracking code here
-  googleAnalyticsTrackingCode:
-
-  # put your google server key (used for youtube favicon fetching)
-  googleAuthKey:
-
-  # number of http threads
-  backgroundThreads: 3
-
-  # number of database updating threads
-  databaseUpdateThreads: 1
-
-  # settings for sending emails (password recovery)
-  smtpHost: localhost
-  smtpPort: 25
-  smtpTls: false
-  smtpUserName: user
-  smtpPassword: pass
-
-  # Graphite Metric settings
-  # Allows those who use Graphite to have CommaFeed send metrics for graphing (time in seconds)
-  graphiteEnabled: false
-  graphitePrefix: "test.commafeed"
-  graphiteHost: "localhost"
-  graphitePort: 2003
-  graphiteInterval: 60
-
-  # wether this commafeed instance has a lot of feeds to refresh
-  # leave this to false in almost all cases
-  heavyLoad: false
-
-  # minimum amount of time commafeed will wait before refreshing the same feed
-  refreshIntervalMinutes: 5
-
-  # wether to enable pubsub
-  # probably not needed if refreshIntervalMinutes is low
-  pubsubhubbub: false
-
-  # if enabled, images in feed entries will be proxied through the server instead of accessed directly by the browser
-  # useful if commafeed is usually accessed through a restricting proxy
-  imageProxyEnabled: false
-
-  # database query timeout (in milliseconds), 0 to disable
-  queryTimeout: 0
-
-  # time to keep unread statuses (in days), 0 to disable
-  keepStatusDays: 0
-
-  # entries to keep per feed, old entries will be deleted, 0 to disable
-  maxFeedCapacity: 500
-
-  # cache service to use, possible values are 'noop' and 'redis'
-  cache: noop
-
-  # announcement string displayed on the main page
-  announcement:
-
-  # user-agent string that will be used by the http client, leave empty for the default one
-  userAgent:
-
-# Database connection
-# -------------------
-# for MySQL
-# driverClass is com.mysql.jdbc.Driver
-# url is jdbc:mysql://localhost/commafeed?autoReconnect=true&failOverReadOnly=false&maxReconnects=20&rewriteBatchedStatements=true
+#bx:
+#  ip: 192.168.0.190
+#  nacos:
+#    server-addr: 127.0.0.1:8848
+#  swagger:
+#    enabled: true
+#    title: 用户认证中心
+#    description: 用户认证中心接口文档
+#    version: 1.0
+#    base-package: com.cloud.user.controller
 #
-# for PostgreSQL
-# driverClass is org.postgresql.Driver
-# url is jdbc:postgresql://localhost:5432/commafeed
+#server:
+#  port: 8000
+#spring:
+#  application:
+#    name: user-center
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://${bx.ip}:3306/user-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+#    username: root
+#    password: root
+#    initialSize: 5
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    poolPreparedStatements: true
+#    maxPoolPreparedStatementPerConnectionSize: 20
+#    filters: stat,wall,slf4j
+#    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#    useGlobalDataSourceStat: true
+#    hikari:
+#      minimum-idle: 5
+#      maximum-pool-size: 20
+#      connection-test-query: SELECT 1
+#  #  rabbitmq:
+#  #    host: ${bx.ip}
+#  #    port: 5672
+#  #    username: cloud-dev
+#  #    password: cloud-dev
+#  #    virtual-host: /
+##  redis:
+##    host: ${bx.ip}
+##    port: 6379
+##    password:
+##    timeout: 10s
+##    lettuce:
+##      pool:
+##        min-idle: 0
+##        max-idle: 8
+##        max-active: 8
+##        max-wait: -1ms
+#  mvc:
+#    servlet:
+#      load-on-startup: 1
+#  aop:
+#    proxy-target-class: true
+#  zipkin:
+#    discovery-client-enabled: false
+#  #      base-url: http://localhost:9411
+#  #      enabled: true
+#  #      sender:
+#  #        type: web
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: ${bx.nacos.server-addr}
+#        file-extension: yml
+#        shared-dataids: common.yml
+#        refreshable-dataids: common.yml
+#      discovery:
+#        server-addr: ${bx.nacos.server-addr}
 #
-# for Microsoft SQL Server
-# driverClass is net.sourceforge.jtds.jdbc.Driver
-# url is jdbc:jtds:sqlserver://localhost:1433/commafeed;instance=<instanceName, remove if not needed>
-
-database:
-  driverClass: org.h2.Driver
-  url: jdbc:h2:./target/example
-  user: sa
-  password: sa
-  properties:
-    charSet: UTF-8
-  validationQuery: "/* CommaFeed Health Check */ SELECT 1"
-
-server:
-  applicationConnectors:
-    - type: http
-      port: 8083
-  adminConnectors:
-    - type: http
-      port: 8084
-
-logging:
-  level: INFO
-  loggers:
-    com.commafeed: DEBUG
-    liquibase: INFO
-    org.hibernate.SQL: INFO # or ALL for sql debugging
-    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: WARN
-  appenders:
-    - type: console
-    - type: file
-      currentLogFilename: log/commafeed.log
-      threshold: ALL
-      archive: true
-      archivedLogFilenamePattern: log/commafeed-%d.log
-      archivedFileCount: 5
-      timeZone: UTC
-
-# Redis pool configuration
-# (only used if app.cache is 'redis')
-# -----------------------------------
-redis:
-  host: localhost
-  port: 6379
-  password:
-  timeout: 2000
-  database: 0
-  maxTotal: 500
+#access_token:
+#  store-jwt: false
+#  jwt-signing-key: liugh=$==+_+%0%:)(:)
+#
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#    health:
+#      show-details: always
+#mybatis-plus:
+#  mapper-locations: classpath:/mybatis-mappers/*Mapper.xml
+#  typeAliasesPackage: com.cloud.model.user
+#
+#
+#logging:
+#  level:
+#    root: info
+#    com.cloud: debug
+#  file: logs/${spring.application.name}.log
+#
+#
+#
+## CommaFeed settings
+## ------------------
+#app:
+#  # url used to access commafeed
+#  publicUrl: http://localhost:8082/
+#
+#  # wether to allow user registrations
+#  allowRegistrations: true
+#
+#  # create a demo account the first time the app starts
+#  createDemoAccount: false
+#
+#  # put your google analytics tracking code here
+#  googleAnalyticsTrackingCode:
+#
+#  # put your google server key (used for youtube favicon fetching)
+#  googleAuthKey:
+#
+#  # number of http threads
+#  backgroundThreads: 3
+#
+#  # number of database updating threads
+#  databaseUpdateThreads: 1
+#
+#  # settings for sending emails (password recovery)
+#  smtpHost: localhost
+#  smtpPort: 25
+#  smtpTls: false
+#  smtpUserName: user
+#  smtpPassword: pass
+#
+#  # Graphite Metric settings
+#  # Allows those who use Graphite to have CommaFeed send metrics for graphing (time in seconds)
+#  graphiteEnabled: false
+#  graphitePrefix: "test.commafeed"
+#  graphiteHost: "localhost"
+#  graphitePort: 2003
+#  graphiteInterval: 60
+#
+#  # wether this commafeed instance has a lot of feeds to refresh
+#  # leave this to false in almost all cases
+#  heavyLoad: false
+#
+#  # minimum amount of time commafeed will wait before refreshing the same feed
+#  refreshIntervalMinutes: 5
+#
+#  # wether to enable pubsub
+#  # probably not needed if refreshIntervalMinutes is low
+#  pubsubhubbub: false
+#
+#  # if enabled, images in feed entries will be proxied through the server instead of accessed directly by the browser
+#  # useful if commafeed is usually accessed through a restricting proxy
+#  imageProxyEnabled: false
+#
+#  # database query timeout (in milliseconds), 0 to disable
+#  queryTimeout: 0
+#
+#  # time to keep unread statuses (in days), 0 to disable
+#  keepStatusDays: 0
+#
+#  # entries to keep per feed, old entries will be deleted, 0 to disable
+#  maxFeedCapacity: 500
+#
+#  # cache service to use, possible values are 'noop' and 'redis'
+#  cache: noop
+#
+#  # announcement string displayed on the main page
+#  announcement:
+#
+#  # user-agent string that will be used by the http client, leave empty for the default one
+#  userAgent:
+#
+## Database connection
+## -------------------
+## for MySQL
+## driverClass is com.mysql.jdbc.Driver
+## url is jdbc:mysql://localhost/commafeed?autoReconnect=true&failOverReadOnly=false&maxReconnects=20&rewriteBatchedStatements=true
+##
+## for PostgreSQL
+## driverClass is org.postgresql.Driver
+## url is jdbc:postgresql://localhost:5432/commafeed
+##
+## for Microsoft SQL Server
+## driverClass is net.sourceforge.jtds.jdbc.Driver
+## url is jdbc:jtds:sqlserver://localhost:1433/commafeed;instance=<instanceName, remove if not needed>
+#
+#database:
+#  driverClass: org.h2.Driver
+#  url: jdbc:h2:./target/example
+#  user: sa
+#  password: sa
+#  properties:
+#    charSet: UTF-8
+#  validationQuery: "/* CommaFeed Health Check */ SELECT 1"
+#
+#server:
+#  applicationConnectors:
+#    - type: http
+#      port: 8083
+#  adminConnectors:
+#    - type: http
+#      port: 8084
+#
+#logging:
+#  level: INFO
+#  loggers:
+#    com.commafeed: DEBUG
+#    liquibase: INFO
+#    org.hibernate.SQL: INFO # or ALL for sql debugging
+#    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: WARN
+#  appenders:
+#    - type: console
+#    - type: file
+#      currentLogFilename: log/commafeed.log
+#      threshold: ALL
+#      archive: true
+#      archivedLogFilenamePattern: log/commafeed-%d.log
+#      archivedFileCount: 5
+#      timeZone: UTC
+#
+## Redis pool configuration
+## (only used if app.cache is 'redis')
+## -----------------------------------
+#redis:
+#  host: localhost
+#  port: 6379
+#  password:
+#  timeout: 2000
+#  database: 0
+#  maxTotal: 500
