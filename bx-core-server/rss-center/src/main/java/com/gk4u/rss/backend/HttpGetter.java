@@ -40,7 +40,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -49,6 +49,7 @@ import org.apache.http.util.EntityUtils;
  */
 @Slf4j
 
+@Component
 public class HttpGetter {
 
 	private static final String ACCEPT_LANGUAGE = "en";
@@ -71,10 +72,7 @@ public class HttpGetter {
 
 
 	public HttpGetter(CommaFeedConfiguration config) {
-		this.userAgent = config.getApplicationSettings().getUserAgent();
-		if (this.userAgent == null) {
-			this.userAgent = String.format("CommaFeed/%s (https://github.com/Athou/commafeed)", config.getVersion());
-		}
+		this.userAgent = null;
 	}
 
 	public HttpResult getBinary(String url, int timeout) throws ClientProtocolException, IOException, NotModifiedException {

@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.190:3306/user-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    url: jdbc:mysql://192.168.0.190:3306/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
     username: root
     password: root
     initialSize: 5
@@ -24,3 +24,26 @@ spring:
       minimum-idle: 5
       maximum-pool-size: 20
       connection-test-query: SELECT 1
+
+
+app:
+  # url used to access commafeed
+  publicUrl: http://localhost:8082/
+
+  # wether to allow user registrations
+  allowRegistrations: true
+
+  # create a demo account the first time the app starts
+  createDemoAccount: false
+
+  # put your google analytics tracking code here
+  googleAnalyticsTrackingCode:
+
+  # put your google server key (used for youtube favicon fetching)
+  googleAuthKey:
+
+  # number of http threads
+  backgroundThreads: 3
+
+  # number of database updating threads
+  databaseUpdateThreads: 1

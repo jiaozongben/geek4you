@@ -9,20 +9,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.tomcat.util.codec.binary.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
 @Slf4j
-
+@Component
 public class FeedFetcher {
 
+    @Autowired
     private FeedParser parser;
+    @Autowired
     private HttpGetter getter;
     private Set<FeedURLProvider> urlProviders;
 
-    public FetchedFeed fetch(String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, Date lastPublishedDate,
+    public FetchedFeed fetch(String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, LocalDate lastPublishedDate,
                              String lastContentHash) throws FeedException, IOException, HttpGetter.NotModifiedException {
         log.debug("Fetching feed {}", feedUrl);
         FetchedFeed fetchedFeed = null;
@@ -62,7 +67,7 @@ public class FeedFetcher {
         }
 
         if (lastPublishedDate != null && fetchedFeed.getFeed().getLastPublishedDate() != null
-                && lastPublishedDate.getTime() == fetchedFeed.getFeed().getLastPublishedDate().getTime()) {
+                && lastPublishedDate == fetchedFeed.getFeed().getLastPublishedDate()) {
             log.debug("publishedDate not modified: {}", feedUrl);
             throw new HttpGetter.NotModifiedException("publishedDate not modified");
         }

@@ -1,100 +1,83 @@
 package com.gk4u.rss.backend.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDate;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author James Bond
+ * @since 2020-07-25
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Feed implements Serializable {
 
-import java.util.Date;
+    private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-@Getter
-@Setter
-public class Feed extends AbstractModel{
-
-    /**
-     * The url of the feed
-     */
     private String url;
 
-    /**
-     * cache the url after potential http 30x redirects
-     */
+    @TableField("urlAfterRedirect")
     private String urlAfterRedirect;
 
+    @TableField("normalizedUrl")
     private String normalizedUrl;
 
+    @TableField("normalizedUrlHash")
     private String normalizedUrlHash;
 
-    /**
-     * The url of the website, extracted from the feed
-     */
     private String link;
 
-    /**
-     * Last time we tried to fetch the feed
-     */
-    private Date lastUpdated;
+    @TableField("lastUpdated")
+    private LocalDate lastUpdated;
 
-    /**
-     * Last publishedDate value in the feed
-     */
-    private Date lastPublishedDate;
+    @TableField("lastPublishedDate")
+    private LocalDate lastPublishedDate;
 
-    /**
-     * date of the last entry of the feed
-     */
-    private Date lastEntryDate;
+    @TableField("lastEntryDate")
+    private LocalDate lastEntryDate;
 
-    /**
-     * error message while retrieving the feed
-     */
     private String message;
 
-    /**
-     * times we failed to retrieve the feed
-     */
-    private int errorCount;
+    @TableField("errorCount")
+    private Integer errorCount;
 
-    /**
-     * feed refresh is disabled until this date
-     */
-    private Date disabledUntil;
+    @TableField("disabledUntil")
+    private LocalDate disabledUntil;
 
-    /**
-     * http header returned by the feed
-     */
+    @TableField("lastModifiedHeader")
     private String lastModifiedHeader;
 
-    /**
-     * http header returned by the feed
-     */
+    @TableField("etagHeader")
     private String etagHeader;
 
-    /**
-     * average time between entries in the feed
-     */
-    private Long averageEntryInterval;
+    @TableField("averageEntryInterval")
+    private Integer averageEntryInterval;
 
-    /**
-     * last hash of the content of the feed xml
-     */
+    @TableField("lastContentHash")
     private String lastContentHash;
 
-    /**
-     * detected hub for pubsubhubbub
-     */
+    @TableField("pushHub")
     private String pushHub;
 
-    /**
-     * detected topic for pubsubhubbub
-     */
+    @TableField("pushTopic")
     private String pushTopic;
 
+    @TableField("pushTopicHash")
     private String pushTopicHash;
 
-    /**
-     * last time we subscribed for that topic on that hub
-     */
-    private Date pushLastPing;
+    @TableField("pushLastPing")
+    private LocalDate pushLastPing;
+
 
 }

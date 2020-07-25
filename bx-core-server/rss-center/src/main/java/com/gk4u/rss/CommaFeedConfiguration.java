@@ -7,6 +7,9 @@ import lombok.Getter;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -15,120 +18,19 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 @Getter
+@Configuration  //证明这是一个配置类
+@PropertySource(value = {"classpath:application.yml"}, ignoreResourceNotFound = true)//可以放多个,{}里面用,分开
 public class CommaFeedConfiguration {
+    @Value("${app.backgroundThreads}")
+    private Integer backgroundThreads;
 
-	public static enum CacheType {
-		NOOP, REDIS
-	}
+    @Value("${app.heavyLoad:true}")
+    private Boolean heavyLoad;
 
-	private ResourceBundle bundle;
+    @Value("${app.refreshIntervalMinutes}")
+    private Integer refreshIntervalMinutes;
+    @Value("${app.maxFeedCapacity}")
+    private Integer maxFeedCapacity;
 
-	public CommaFeedConfiguration() {
-		bundle = ResourceBundle.getBundle("application");
-	}
-
-
-	@Valid
-	@NotNull
-	@JsonProperty("app")
-	private ApplicationSettings applicationSettings;
-
-	public String getVersion() {
-		return bundle.getString("version");
-	}
-
-	public String getGitCommit() {
-		return bundle.getString("git.commit");
-	}
-
-	@Getter
-	public static class ApplicationSettings {
-		@NotNull
-		@NotBlank
-		@Valid
-		private String publicUrl;
-
-		@NotNull
-		@Valid
-		private Boolean allowRegistrations;
-
-		@NotNull
-		@Valid
-		private Boolean createDemoAccount;
-
-		private String googleAnalyticsTrackingCode;
-
-		private String googleAuthKey;
-
-		@NotNull
-		@Min(1)
-		@Valid
-		private Integer backgroundThreads;
-
-		@NotNull
-		@Min(1)
-		@Valid
-		private Integer databaseUpdateThreads;
-
-		private String smtpHost;
-		private int smtpPort;
-		private boolean smtpTls;
-		private String smtpUserName;
-		private String smtpPassword;
-		private String smtpFromAddress;
-
-		private boolean graphiteEnabled;
-		private String graphitePrefix;
-		private String graphiteHost;
-		private int graphitePort;
-		private int graphiteInterval;
-
-		@NotNull
-		@Valid
-		private Boolean heavyLoad;
-
-		@NotNull
-		@Valid
-		private Boolean pubsubhubbub;
-
-		@NotNull
-		@Valid
-		private Boolean imageProxyEnabled;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer queryTimeout;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer keepStatusDays;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer maxFeedCapacity;
-
-		@NotNull
-		@Min(0)
-		@Valid
-		private Integer refreshIntervalMinutes;
-
-		@NotNull
-		@Valid
-		private CacheType cache;
-
-		@Valid
-		private String announcement;
-
-		private String userAgent;
-
-		public Date getUnreadThreshold() {
-			int keepStatusDays = getKeepStatusDays();
-			return keepStatusDays > 0 ? DateUtils.addDays(new Date(), -1 * keepStatusDays) : null;
-		}
-
-	}
 
 }

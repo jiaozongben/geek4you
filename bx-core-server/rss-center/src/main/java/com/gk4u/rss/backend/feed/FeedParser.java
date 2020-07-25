@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
+import org.springframework.stereotype.Component;
 import org.xml.sax.InputSource;
 
 
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-
+@Component
 public class FeedParser {
 
     private static final String ATOM_10_URI = "http://www.w3.org/2005/Atom";

@@ -3,6 +3,7 @@ package com.gk4u.rss.backend.feed;
 
 import com.gk4u.rss.backend.model.FeedEntry;
 import com.gk4u.rss.backend.model.FeedSubscription;
+import com.gk4u.rss.backend.util.DateUtil;
 import com.ibm.icu.text.CharsetDetector;
 import com.ibm.icu.text.CharsetMatch;
 import com.steadystate.css.parser.CSSOMParser;
@@ -31,6 +32,7 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -355,19 +357,19 @@ public class FeedUtils {
     /**
      * When the feed was refreshed successfully
      */
-    public static Date buildDisabledUntil(Date publishedDate, Long averageEntryInterval, Date defaultRefreshInterval) {
+    public static Date buildDisabledUntil(LocalDate publishedDate, Long averageEntryInterval, LocalDate defaultRefreshInterval) {
         Date now = new Date();
 
         if (publishedDate == null) {
             // feed with no entries, recheck in 24 hours
             return DateUtils.addHours(now, 24);
-        } else if (publishedDate.before(DateUtils.addMonths(now, -1))) {
+        } else if (publishedDate.isBefore(DateUtil.addLocaltime(now, -1))) {
             // older than a month, recheck in 24 hours
             return DateUtils.addHours(now, 24);
-        } else if (publishedDate.before(DateUtils.addDays(now, -14))) {
+        } else if (publishedDate.isBefore(DateUtil.addDays(now, -14))) {
             // older than two weeks, recheck in 12 hours
             return DateUtils.addHours(now, 12);
-        } else if (publishedDate.before(DateUtils.addDays(now, -7))) {
+        } else if (publishedDate.isBefore(DateUtil.addDays(now, -7))) {
             // older than a week, recheck in 6 hours
             return DateUtils.addHours(now, 6);
         } else if (averageEntryInterval != null) {

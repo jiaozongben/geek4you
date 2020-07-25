@@ -17,7 +17,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import java.util.Date;
 /**
  * Calls {@link FeedFetcher} and handles its outcome
- * 
+ *
  */
 @Slf4j
 
@@ -34,8 +34,8 @@ public class FeedRefreshWorker   {
 		this.fetcher = fetcher;
 		this.config = config;
 		this.queues = queues;
-		int threads = config.getApplicationSettings().getBackgroundThreads();
-		pool = new FeedRefreshExecutor("feed-refresh-worker", threads, Math.min(20 * threads, 1000) );
+//		int threads = config.getApplicationSettings().getBackgroundThreads();
+//		pool = new FeedRefreshExecutor("feed-refresh-worker", threads, Math.min(20 * threads, 1000) );
 	}
 
 
@@ -72,7 +72,7 @@ public class FeedRefreshWorker   {
 
 	private void update(FeedRefreshContext context) {
 		Feed feed = context.getFeed();
-		int refreshInterval = config.getApplicationSettings().getRefreshIntervalMinutes();
+		int refreshInterval = config.getRefreshIntervalMinutes();
 		Date disabledUntil = DateUtils.addMinutes(new Date(), refreshInterval);
 		try {
 			String url = Optional.ofNullable(feed.getUrlAfterRedirect()).orElse(feed.getUrl());
@@ -81,12 +81,12 @@ public class FeedRefreshWorker   {
 			// stops here if NotModifiedException or any other exception is thrown
 			List<FeedEntry> entries = fetchedFeed.getEntries();
 
-			Integer maxFeedCapacity = config.getApplicationSettings().getMaxFeedCapacity();
+			Integer maxFeedCapacity = config.getMaxFeedCapacity();
 			if (maxFeedCapacity > 0) {
 				entries = entries.stream().limit(maxFeedCapacity).collect(Collectors.toList());
 			}
 
-			if (config.getApplicationSettings().getHeavyLoad()) {
+			if (config.getHeavyLoad()) {
 				disabledUntil = FeedUtils.buildDisabledUntil(fetchedFeed.getFeed().getLastEntryDate(), fetchedFeed.getFeed()
 						.getAverageEntryInterval(), disabledUntil);
 			}
@@ -114,7 +114,7 @@ public class FeedRefreshWorker   {
 		} catch (HttpGetter.NotModifiedException e) {
 			log.debug("Feed not modified : {} - {}", feed.getUrl(), e.getMessage());
 
-			if (config.getApplicationSettings().getHeavyLoad()) {
+			if (config.getHeavyLoad()) {
 				disabledUntil = FeedUtils.buildDisabledUntil(feed.getLastEntryDate(), feed.getAverageEntryInterval(), disabledUntil);
 			}
 			feed.setErrorCount(0);
