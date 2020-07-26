@@ -3,8 +3,9 @@ package com.gk4u.rss.backend.feed;
 
 import com.gk4u.rss.CommaFeedConfiguration;
 
+import com.gk4u.rss.backend.entity.Feed;
 import com.gk4u.rss.backend.mapper.FeedMapper;
-import com.gk4u.rss.backend.model.Feed;
+
 
 import com.gk4u.rss.backend.service.impl.FeedServiceImpl;
 import com.gk4u.rss.backend.util.DateUtil;
@@ -12,8 +13,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public class FeedQueues {
      */
     public void add(Feed feed, boolean urgent) {
         int refreshInterval = config.getRefreshIntervalMinutes();
-        if (feed.getLastUpdated() == null || feed.getLastUpdated().isBefore(DateUtil.addLocaltime(new Date(), -1 * refreshInterval))) {
+        if (feed.getLastUpdated() == null || DateUtil.localDateTime2Date(feed.getLastUpdated()).before(DateUtils.addMinutes(new Date(), -1 * refreshInterval))) {
             boolean alreadyQueued = addQueue.stream().anyMatch(c -> c.getFeed().getId().equals(feed.getId()));
             if (!alreadyQueued) {
                 addQueue.add(new FeedRefreshContext(feed, urgent));
@@ -94,7 +94,7 @@ public class FeedQueues {
         Map<Integer, FeedRefreshContext> map = new LinkedHashMap<>();
         for (FeedRefreshContext context : contexts) {
             Feed feed = context.getFeed();
-            feed.setDisabledUntil(DateUtil.addLocaltime(new Date(), config.getRefreshIntervalMinutes()));
+            feed.setDisabledUntil(DateUtil.date2LocalDate(DateUtils.addMinutes(new Date(), config.getRefreshIntervalMinutes())));
             map.put(feed.getId(), context);
         }
 
@@ -120,7 +120,7 @@ public class FeedQueues {
         String normalized = FeedUtils.normalizeURL(feed.getUrl());
         feed.setNormalizedUrl(normalized);
         feed.setNormalizedUrlHash(DigestUtils.sha1Hex(normalized));
-        feed.setLastUpdated(LocalDate.now());
+        feed.setLastUpdated(DateUtil.date2LocalDate(new Date(0)));
         giveBackQueue.add(feed);
     }
 

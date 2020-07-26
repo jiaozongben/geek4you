@@ -29,8 +29,15 @@ public class CommaFeedConfiguration {
 
     @Value("${app.refreshIntervalMinutes}")
     private Integer refreshIntervalMinutes;
+
     @Value("${app.maxFeedCapacity}")
     private Integer maxFeedCapacity;
+
+    @Value("${app.databaseUpdateThreads}")
+    private Integer databaseUpdateThreads;
+
+    @Value("${app.publicUrl}")
+    private String publicUrl;
 
 
 }

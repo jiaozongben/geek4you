@@ -1,6 +1,6 @@
-package com.gk4u.rss.backend.model;
+package com.gk4u.rss.backend.entity;
 
-import com.gk4u.rss.backend.entity.User;
+//import com.gk4u.rss.backend.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 public class FeedSubscription extends AbstractModel {
 
 
-    private User user;
+//    private User user;
 
 
     private Feed feed;

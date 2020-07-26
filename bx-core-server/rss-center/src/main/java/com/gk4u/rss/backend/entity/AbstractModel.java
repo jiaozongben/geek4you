@@ -1,4 +1,4 @@
-package com.gk4u.rss.backend.model;
+package com.gk4u.rss.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;

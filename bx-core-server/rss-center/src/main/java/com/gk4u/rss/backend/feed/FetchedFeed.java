@@ -1,8 +1,9 @@
 package com.gk4u.rss.backend.feed;
 
 
-import com.gk4u.rss.backend.model.Feed;
-import com.gk4u.rss.backend.model.FeedEntry;
+
+import com.gk4u.rss.backend.entity.Feed;
+import com.gk4u.rss.backend.entity.FeedEntry;
 import lombok.Getter;
 import lombok.Setter;
 

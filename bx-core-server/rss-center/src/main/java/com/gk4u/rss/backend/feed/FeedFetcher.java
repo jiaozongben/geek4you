@@ -2,8 +2,10 @@ package com.gk4u.rss.backend.feed;
 
 
 import com.gk4u.rss.backend.HttpGetter;
-import com.gk4u.rss.backend.model.Feed;
+
+import com.gk4u.rss.backend.entity.Feed;
 import com.gk4u.rss.backend.urlprovider.FeedURLProvider;
+import com.gk4u.rss.backend.util.DateUtil;
 import com.rometools.rome.io.FeedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class FeedFetcher {
     private HttpGetter getter;
     private Set<FeedURLProvider> urlProviders;
 
-    public FetchedFeed fetch(String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, LocalDate lastPublishedDate,
+    public FetchedFeed fetch(String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, Date lastPublishedDate,
                              String lastContentHash) throws FeedException, IOException, HttpGetter.NotModifiedException {
         log.debug("Fetching feed {}", feedUrl);
         FetchedFeed fetchedFeed = null;
@@ -67,7 +68,7 @@ public class FeedFetcher {
         }
 
         if (lastPublishedDate != null && fetchedFeed.getFeed().getLastPublishedDate() != null
-                && lastPublishedDate == fetchedFeed.getFeed().getLastPublishedDate()) {
+                && lastPublishedDate.getTime() == DateUtil.localDateTime2Date(fetchedFeed.getFeed().getLastPublishedDate()).getTime()) {
             log.debug("publishedDate not modified: {}", feedUrl);
             throw new HttpGetter.NotModifiedException("publishedDate not modified");
         }

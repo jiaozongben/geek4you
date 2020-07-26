@@ -1,9 +1,10 @@
 package com.gk4u.rss.backend.feed;
 
 
-import com.gk4u.rss.backend.model.Feed;
-import com.gk4u.rss.backend.model.FeedEntry;
-import com.gk4u.rss.backend.model.FeedEntryContent;
+import com.gk4u.rss.backend.entity.Feed;
+import com.gk4u.rss.backend.entity.FeedEntry;
+import com.gk4u.rss.backend.entity.FeedEntryContent;
+import com.gk4u.rss.backend.util.DateUtil;
 import com.google.common.collect.Iterables;
 import com.rometools.rome.feed.synd.*;
 import com.rometools.rome.io.FeedException;
@@ -100,9 +101,9 @@ public class FeedParser {
                 lastEntryDate = new Date(timestamp);
                 publishedDate = (publishedDate == null || publishedDate.before(lastEntryDate)) ? lastEntryDate : publishedDate;
             }
-            feed.setLastPublishedDate(publishedDate);
+            feed.setLastPublishedDate(DateUtil.date2LocalDate(publishedDate));
             feed.setAverageEntryInterval(FeedUtils.averageTimeBetweenEntries(entries));
-            feed.setLastEntryDate(lastEntryDate);
+            feed.setLastEntryDate(DateUtil.date2LocalDate(lastEntryDate));
 
         } catch (Exception e) {
             throw new FeedException(String.format("Could not parse feed from %s : %s", feedUrl, e.getMessage()), e);
