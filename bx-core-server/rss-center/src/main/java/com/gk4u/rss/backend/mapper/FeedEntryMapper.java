@@ -3,6 +3,8 @@ package com.gk4u.rss.backend.mapper;
 import com.gk4u.rss.backend.entity.Feed;
 import com.gk4u.rss.backend.entity.FeedEntry;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Date;
 import java.util.List;
@@ -16,11 +18,15 @@ import java.util.List;
  * @since 2020-07-26
  */
 public interface FeedEntryMapper extends BaseMapper<FeedEntry> {
-    public List<Feed> findNextUpdatable(int count, Date lastLoginThreshold);
 
-    public Feed findByUrl(String normalizedUrl);
-
-    public List<Feed> findByTopic(String topic);
-
-    public List<Feed> findWithoutSubscriptions(int max);
+    public Long findExisting(String guid, Feed feed);
+    public List<FeedCapacity> findFeedsExceedingCapacity(long maxCapacity, long max);
+    public int delete(Long feedId, long max);
+    public int deleteOldEntries(Long feedId, long max);
+    @AllArgsConstructor
+    @Getter
+    public static class FeedCapacity {
+        private Long id;
+        private Long capacity;
+    }
 }

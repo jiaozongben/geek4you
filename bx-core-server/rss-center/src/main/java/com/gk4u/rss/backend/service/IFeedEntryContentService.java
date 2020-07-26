@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-07-26
  */
 public interface IFeedEntryContentService extends IService<FeedEntryContent> {
-
+    public FeedEntryContent findOrCreate(FeedEntryContent content, String baseUrl);
 }
