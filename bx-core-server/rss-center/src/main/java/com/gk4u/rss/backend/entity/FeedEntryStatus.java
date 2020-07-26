@@ -2,6 +2,7 @@ package com.gk4u.rss.backend.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,30 +17,26 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class FeedEntryContent implements Serializable {
+public class FeedEntryStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    private Long userid;
+
     private Long entryId;
 
-    private String title;
+    private Boolean readStatus;
 
-    private String titleHash;
+    private Boolean starred;
 
-    private String content;
+    private Boolean markable;
 
-    private String contentHash;
+    private LocalDateTime inserted;
 
-    private String author;
-
-    private String enclosureUrl;
-
-    private String enclosureType;
-
-    private String categories;
+    private LocalDateTime updated;
 
 
 }

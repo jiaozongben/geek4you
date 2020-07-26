@@ -70,7 +70,7 @@ public class FeedParser {
                     continue;
                 }
                 entry.setGuid(FeedUtils.truncate(guid, 2048));
-                entry.setUpdated(validateDate(getEntryUpdateDate(item), true));
+                entry.setUpdated(DateUtil.date2LocalDate(validateDate(getEntryUpdateDate(item), true)));
                 entry.setUrl(FeedUtils.truncate(FeedUtils.toAbsoluteUrl(item.getLink(), feed.getLink(), feedUrl), 2048));
 
                 // if link is empty but guid is used as url
@@ -89,7 +89,8 @@ public class FeedParser {
                     content.setEnclosureUrl(FeedUtils.truncate(enclosure.getUrl(), 2048));
                     content.setEnclosureType(enclosure.getType());
                 }
-                entry.setContent(content);
+                //todo
+//                entry.setContent(content);
 
                 entries.add(entry);
             }

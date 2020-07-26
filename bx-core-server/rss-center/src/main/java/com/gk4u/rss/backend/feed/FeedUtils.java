@@ -3,6 +3,7 @@ package com.gk4u.rss.backend.feed;
 
 import com.gk4u.rss.backend.entity.FeedEntry;
 import com.gk4u.rss.backend.entity.FeedSubscription;
+import com.gk4u.rss.backend.util.DateUtil;
 import com.ibm.icu.text.CharsetDetector;
 import com.ibm.icu.text.CharsetMatch;
 import com.steadystate.css.parser.CSSOMParser;
@@ -292,10 +293,11 @@ public class FeedUtils {
     }
 
     public static boolean isRTL(FeedEntry entry) {
-        String text = entry.getContent().getContent();
+        String text = "";
+//        String text = entry.getContent().getContent();
 
         if (StringUtils.isBlank(text)) {
-            text = entry.getContent().getTitle();
+//            text = entry.getContent().getTitle();
         }
 
         if (StringUtils.isBlank(text)) {
@@ -403,7 +405,7 @@ public class FeedUtils {
     }
 
     public static List<Long> getSortedTimestamps(List<FeedEntry> entries) {
-        return entries.stream().map(t -> t.getUpdated().getTime()).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+        return entries.stream().map(t -> DateUtil.localDateTime2Date(t.getUpdated()).getTime()).sorted(Collections.reverseOrder()).collect(Collectors.toList());
     }
 
     public static String removeTrailingSlash(String url) {

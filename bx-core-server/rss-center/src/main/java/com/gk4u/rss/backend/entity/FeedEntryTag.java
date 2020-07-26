@@ -16,30 +16,16 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class FeedEntryContent implements Serializable {
+public class FeedEntryTag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    private String name;
+
     private Long entryId;
-
-    private String title;
-
-    private String titleHash;
-
-    private String content;
-
-    private String contentHash;
-
-    private String author;
-
-    private String enclosureUrl;
-
-    private String enclosureType;
-
-    private String categories;
 
 
 }
