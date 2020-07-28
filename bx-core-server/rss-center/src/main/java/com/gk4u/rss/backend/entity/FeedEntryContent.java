@@ -3,6 +3,8 @@ package com.gk4u.rss.backend.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Set;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -41,5 +43,6 @@ public class FeedEntryContent implements Serializable {
 
     private String categories;
 
-
+    //feed内容
+    private Set<FeedEntry> entries;
 }

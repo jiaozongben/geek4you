@@ -2,15 +2,15 @@ package com.gk4u.rss.backend.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ * <p>
  * </p>
  *
  * @author James Bond
@@ -25,32 +25,27 @@ public class UserRole implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String name;
-
-    private String email;
-
-    private String password;
-
-    @TableField("apiKey")
-    private String apiKey;
-
-    private Integer salt;
-
-    private Boolean disabled;
-
-    @TableField("lastLogin")
-    private LocalDateTime lastLogin;
-
-    private LocalDateTime created;
-
-    @TableField("recoverPasswordToken")
-    private String recoverPasswordToken;
-
-    @TableField("recoverPasswordTokenDate")
-    private LocalDateTime recoverPasswordTokenDate;
-
-    @TableField("lastFullRefresh")
-    private LocalDateTime lastFullRefresh;
+    private String userId;
 
 
+    public static enum Role {
+        USER, ADMIN
+    }
+
+
+    //用户
+    private User user;
+
+
+    //角色
+    private Role role;
+
+    public UserRole() {
+
+    }
+
+    public UserRole(User user, Role role) {
+        this.user = user;
+        this.role = role;
+    }
 }

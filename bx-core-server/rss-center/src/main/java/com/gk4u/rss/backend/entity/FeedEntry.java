@@ -38,8 +38,12 @@ public class FeedEntry implements Serializable {
 
     private LocalDateTime updated;
 
+    //feed对象
     private Feed feed;
+    //feed对象内容
     private FeedEntryContent content;
+    //feed对象状态
     private Set<FeedEntryStatus> statuses;
+    //feed对象标签
     private Set<FeedEntryTag> tags;
 }
