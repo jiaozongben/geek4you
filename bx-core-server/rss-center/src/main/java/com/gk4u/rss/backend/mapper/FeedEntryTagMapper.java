@@ -16,7 +16,10 @@ import java.util.List;
  * @since 2020-07-26
  */
 public interface FeedEntryTagMapper extends BaseMapper<FeedEntryTag> {
+
+    //通过用户找回来标签tag
     public List<String> findByUser(User user);
 
+    //通过用户、feed找回来内容标签
     public List<FeedEntryTag> findByEntry(User user, FeedEntry entry);
 }

@@ -21,12 +21,16 @@ import java.util.List;
 @Component
 public interface FeedEntryMapper extends BaseMapper<FeedEntry> {
 
+    //查询feed entry 是否存在
     public Long findExisting(String guid, Feed feed);
 
+    //查询当前各feed的容量，分组查询数量
     public List<FeedCapacity> findFeedsExceedingCapacity(long maxCapacity, long max);
 
+    //删除feed
     public int delete(Long feedId, long max);
 
+    //删除过期feed
     public int deleteOldEntries(Long feedId, long max);
 
     @AllArgsConstructor

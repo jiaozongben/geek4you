@@ -18,12 +18,16 @@ public interface FeedMapper extends BaseMapper<Feed> {
 
 
 
+    //找到最近没失效的feed
     public List<Feed> findNextUpdatable(int count, Date lastLoginThreshold);
 
+    //通过url查询回feed
     public Feed findByUrl(String normalizedUrl);
 
+    //通过topic 话题查询回来所有的feed
     public List<Feed> findByTopic(String topic);
 
+    //查询回来所有没有订阅的？？
     public List<Feed> findWithoutSubscriptions(int max);
 
 }

@@ -15,9 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public interface FeedEntryContentMapper extends BaseMapper<FeedEntryContent> {
 
-
+    //找出存在的feed entry 内容
     public Long findExisting(String contentHash, String titleHash);
 
+    //删除存在的feed entry 内容
     public int deleteWithoutEntries(int max);
 
 }
