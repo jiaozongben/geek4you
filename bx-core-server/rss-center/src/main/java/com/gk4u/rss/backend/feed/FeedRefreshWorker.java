@@ -66,7 +66,7 @@ public class FeedRefreshWorker {
             update(context);
         }
 
-        @Override
+
         public boolean isUrgent() {
             return context.isUrgent();
         }

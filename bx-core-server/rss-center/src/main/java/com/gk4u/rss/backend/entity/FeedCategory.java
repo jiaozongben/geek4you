@@ -16,20 +16,24 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class FeedSubscription implements Serializable {
+public class FeedCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Long entryId;
+    private Long userId;
 
-    private String title;
+    private Long feedId;
+
+    private String name;
+
+    private String parentId;
+
+    private Boolean collapsed;
 
     private Integer position;
-
-    private String filter;
 
 
 }

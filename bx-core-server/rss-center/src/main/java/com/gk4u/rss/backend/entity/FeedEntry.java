@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.Set;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,5 +38,8 @@ public class FeedEntry implements Serializable {
 
     private LocalDateTime updated;
 
-
+    private Feed feed;
+    private FeedEntryContent content;
+    private Set<FeedEntryStatus> statuses;
+    private Set<FeedEntryTag> tags;
 }

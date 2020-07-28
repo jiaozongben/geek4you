@@ -7,6 +7,7 @@ import com.gk4u.rss.backend.entity.FeedSubscription;
 import com.gk4u.rss.backend.entity.User;
 import com.gk4u.rss.backend.feed.FeedEntryKeyword;
 import com.gk4u.rss.frontend.model.UnreadCount;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
  * @author James Bond
  * @since 2020-07-26
  */
+@Component
 public interface FeedEntryStatusMapper extends BaseMapper<FeedEntryStatus> {
+
     public FeedEntryStatus getStatus(User user, FeedSubscription sub, FeedEntry entry);
 
 

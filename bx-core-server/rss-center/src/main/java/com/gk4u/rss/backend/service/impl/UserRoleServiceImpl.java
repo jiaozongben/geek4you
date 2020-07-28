@@ -1,8 +1,8 @@
 package com.gk4u.rss.backend.service.impl;
 
-import com.gk4u.rss.backend.entity.User;
-import com.gk4u.rss.backend.mapper.UserMapper;
-import com.gk4u.rss.backend.service.IUserService;
+import com.gk4u.rss.backend.entity.UserRole;
+import com.gk4u.rss.backend.mapper.UserRoleMapper;
+import com.gk4u.rss.backend.service.IUserRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-07-28
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements IUserRoleService {
 
 }

@@ -3,10 +3,7 @@
 //
 //import com.gk4u.rss.CommaFeedConfiguration;
 //import com.gk4u.rss.backend.cache.CacheService;
-//import com.gk4u.rss.backend.entity.Feed;
-//import com.gk4u.rss.backend.entity.FeedEntry;
-//import com.gk4u.rss.backend.entity.FeedEntryContent;
-//import com.gk4u.rss.backend.entity.FeedSubscription;
+//import com.gk4u.rss.backend.entity.*;
 //import com.gk4u.rss.backend.service.FeedUpdateService;
 //import com.gk4u.rss.backend.service.PubSubService;
 //import com.gk4u.rss.backend.util.DateUtil;
@@ -38,10 +35,8 @@
 //    private Striped<Lock> locks;
 //
 //
-//
-//
-//    public FeedRefreshUpdater(  FeedUpdateService feedUpdateService, PubSubService pubSubService,
-//                              FeedQueues queues, CommaFeedConfiguration config ,FeedSubscriptionDAO feedSubscriptionDAO,
+//    public FeedRefreshUpdater(FeedUpdateService feedUpdateService, PubSubService pubSubService,
+//                              FeedQueues queues, CommaFeedConfiguration config, FeedSubscriptionDAO feedSubscriptionDAO,
 //                              CacheService cache) {
 //
 //        this.feedUpdateService = feedUpdateService;
@@ -51,7 +46,7 @@
 //        this.feedSubscriptionDAO = feedSubscriptionDAO;
 //        this.cache = cache;
 //
-//         int threads = Math.max(config.getDatabaseUpdateThreads(), 1);
+//        int threads = Math.max(config.getDatabaseUpdateThreads(), 1);
 //        pool = new FeedRefreshExecutor("feed-refresh-updater", threads, Math.min(50 * threads, 1000));
 //        locks = Striped.lazyWeakLock(threads * 100000);
 //
@@ -97,12 +92,12 @@
 //                    if (!lastEntries.contains(cacheKey)) {
 //                        log.debug("cache miss for {}", entry.getUrl());
 //                        if (subscriptions == null) {
-//                            subscriptions =  feedSubscriptionDAO.findByFeed(feed) ;
+//                            subscriptions = feedSubscriptionDAO.findByFeed(feed);
 //                        }
 //                        ok &= addEntry(feed, entry, subscriptions);
-//                     } else {
+//                    } else {
 //                        log.debug("cache hit for {}", entry.getUrl());
-//                     }
+//                    }
 //
 //                    currentEntries.add(cacheKey);
 //                }
@@ -155,7 +150,7 @@
 //            locked1 = lock1.tryLock(1, TimeUnit.MINUTES);
 //            locked2 = lock2.tryLock(1, TimeUnit.MINUTES);
 //            if (locked1 && locked2) {
-//                boolean inserted =   feedUpdateService.addEntry(feed, entry, subscriptions) ;
+//                boolean inserted = feedUpdateService.addEntry(feed, entry, subscriptions);
 //                if (inserted) {
 //                    entryInserted.mark();
 //                }

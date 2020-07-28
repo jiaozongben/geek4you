@@ -1,6 +1,6 @@
 package com.gk4u.rss.backend.service;
 
-import com.gk4u.rss.backend.entity.User;
+import com.gk4u.rss.backend.entity.UserSetting;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author James Bond
  * @since 2020-07-28
  */
-public interface IUserService extends IService<User> {
+public interface IUserSettingService extends IService<UserSetting> {
 
 }

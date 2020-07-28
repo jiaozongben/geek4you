@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public interface FeedEntryContentMapper extends BaseMapper<FeedEntryContent> {
 
+
     public Long findExisting(String contentHash, String titleHash);
+
     public int deleteWithoutEntries(int max);
+
 }
