@@ -2,9 +2,13 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.190:3306/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
-    username: root
-    password: root
+#    url: jdbc:mysql://192.168.0.190:3306/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+#    username: root
+#    password: root
+
+    url: jdbc:mysql://10.164.204.153:32436/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: admin
+    password: admin
     initialSize: 5
     minIdle: 5
     maxActive: 20

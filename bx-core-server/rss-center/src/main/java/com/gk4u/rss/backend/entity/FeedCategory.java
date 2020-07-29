@@ -37,13 +37,5 @@ public class FeedCategory implements Serializable {
 
     private Integer position;
 
-    //用户
-    private User user;
-    //父级目录
-    private FeedCategory parent;
-    //孩子节点
-    private Set<FeedCategory> children;
 
-    //订阅目录
-    private Set<FeedSubscription> subscriptions;
 }
