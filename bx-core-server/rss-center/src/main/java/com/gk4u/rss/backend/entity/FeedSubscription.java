@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-29
+ * @since 2020-07-31
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -23,7 +23,9 @@ public class FeedSubscription implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Long entryId;
+    private Long userId;
+
+    private Long feedId;
 
     private String title;
 

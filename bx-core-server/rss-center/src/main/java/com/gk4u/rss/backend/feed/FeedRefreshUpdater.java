@@ -93,7 +93,8 @@ public class FeedRefreshUpdater {
                     if (!lastEntries.contains(cacheKey)) {
                         log.debug("cache miss for {}", entry.getUrl());
                         if (subscriptions == null) {
-                            subscriptions = feedSubscriptionDAO.findByFeed(feed);
+//                            subscriptions = feedSubscriptionDAO.findByFeed(feed);
+                            subscriptions = null;
                         }
                         ok &= addEntry(feed, entry, subscriptions);
                     } else {
@@ -107,7 +108,8 @@ public class FeedRefreshUpdater {
                 if (subscriptions == null) {
                     feed.setMessage("No new entries found");
                 } else if (!subscriptions.isEmpty()) {
-                    List<User> users = subscriptions.stream().map(s -> s.getUser()).collect(Collectors.toList());
+//                    List<User> users = subscriptions.stream().map(s -> s.getUser()).collect(Collectors.toList());
+                    List<User> users = null;
                     cache.invalidateUnreadCount(subscriptions.toArray(new FeedSubscription[0]));
                     cache.invalidateUserRootCategory(users.toArray(new User[0]));
                 }

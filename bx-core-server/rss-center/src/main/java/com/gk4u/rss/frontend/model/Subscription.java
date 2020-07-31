@@ -19,8 +19,10 @@ public class Subscription implements Serializable {
 
     public static Subscription build(FeedSubscription subscription, String publicUrl, UnreadCount unreadCount) {
         Date now = new Date();
-        FeedCategory category = subscription.getCategory();
-        Feed feed = subscription.getFeed();
+//        FeedCategory category = subscription.getCategory();
+//        Feed feed = subscription.getFeed();
+//        FeedCategory category = subscription.getCategory();
+        Feed feed = null;
         Subscription sub = new Subscription();
         sub.setId(Long.valueOf(subscription.getId()));
         sub.setName(subscription.getTitle());
@@ -34,7 +36,8 @@ public class Subscription implements Serializable {
         sub.setNextRefresh((feed.getDisabledUntil() != null && DateUtil.localDateTime2Date(feed.getDisabledUntil()).before(now)) ? null : DateUtil.localDateTime2Date(feed.getDisabledUntil()));
         sub.setUnread(unreadCount.getUnreadCount());
         sub.setNewestItemTime(unreadCount.getNewestItemTime());
-        sub.setCategoryId(category == null ? null : String.valueOf(category.getId()));
+//        sub.setCategoryId(category == null ? null : String.valueOf(category.getId()));
+
         sub.setFilter(subscription.getFilter());
         return sub;
     }

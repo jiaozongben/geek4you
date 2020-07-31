@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-29
+ * @since 2020-07-31
  */
 @RestController
 @RequestMapping("/feed-subscription")

@@ -1,16 +1,19 @@
 package com.gk4u.rss.backend.service.impl;
 
 import com.gk4u.rss.backend.entity.FeedCategory;
+import com.gk4u.rss.backend.entity.FeedSubscription;
 import com.gk4u.rss.backend.entity.User;
 import com.gk4u.rss.backend.entity.vo.FeedCategoryVO;
 import com.gk4u.rss.backend.mapper.FeedCategoryMapper;
 import com.gk4u.rss.backend.service.IFeedCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -24,21 +27,29 @@ import java.util.stream.Collectors;
 @Service
 public class FeedCategoryServiceImpl extends ServiceImpl<FeedCategoryMapper, FeedCategory> implements IFeedCategoryService {
 
+    @Autowired
+    FeedSubscriptionServiceImpl feedSubscriptionService;
+
+    //根据用户查询回来 各目录、各目录中的公众号
     public List<FeedCategoryVO> findAll(User user) {
-        List<FeedCategory> feedCategoryList = lambdaQuery().eq(FeedCategory::getUserId, user.getId()).list();
-
+        List<FeedCategory> feedCategoryList =  lambdaQuery().eq(FeedCategory::getUserId, user.getId()).list();
         List<FeedCategoryVO> feedCategoryVOList = new ArrayList<>();
+        feedCategoryList.forEach( f ->
+        {
+            FeedCategoryVO feedCategoryVO = new FeedCategoryVO();
 
-        feedCategoryList.forEach(f -> {
+//            Set s = feedSubscriptionService.findByFeedCategory(user,f).stream().collect(Collectors.toSet());
+            feedCategoryVO.setCurrent(f);
+//            feedCategoryVO.setSubscriptions(s);
+            feedCategoryVOList.add(feedCategoryVO);
+        });
 
-
-         });
-
-        return null;
+        return feedCategoryVOList;
     }
 
 
     public FeedCategory findById(User user, Long id) {
+
         return query().eq("user_id", user.getId()).eq("id", id).one();
     }
 
@@ -59,7 +70,8 @@ public class FeedCategoryServiceImpl extends ServiceImpl<FeedCategoryMapper, Fee
 
     public List<FeedCategory> findAllChildrenCategories(User user, FeedCategory parent) {
 
-        return findAll(user).stream().filter(c -> isChild(c, parent)).collect(Collectors.toList());
+//        return findAll(user).stream().filter(c -> isChild(c.getCurrent(), parent)).collect(Collectors.toList());
+        return null;
     }
 
     private boolean isChild(FeedCategory child, FeedCategory parent) {
