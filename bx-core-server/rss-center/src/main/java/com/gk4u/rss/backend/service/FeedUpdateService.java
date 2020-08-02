@@ -43,11 +43,11 @@ public class FeedUpdateService {
             return false;
         }
 
-        FeedEntryContent content = feedEntryContentService.findOrCreate(entry.getContent(), feed.getLink());
-        entry.setGuidHash(DigestUtils.sha1Hex(entry.getGuid()));
-        entry.setContent(content);
-        entry.setInserted(DateUtil.date2LocalDate(new Date()));
-        entry.setFeed(feed);
+//        FeedEntryContent content = feedEntryContentService.findOrCreate(entry.getContent(), feed.getLink());
+//        entry.setGuidHash(DigestUtils.sha1Hex(entry.getGuid()));
+//        entry.setContent(content);
+//        entry.setInserted(DateUtil.date2LocalDate(new Date()));
+//        entry.setFeed(feed);
         feedEntryService.saveOrUpdate(entry);
 
         // if filter does not match the entry, mark it as read

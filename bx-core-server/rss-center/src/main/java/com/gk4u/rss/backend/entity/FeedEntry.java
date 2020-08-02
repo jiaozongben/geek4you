@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
-import java.util.Set;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
@@ -16,9 +16,11 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-26
+ * @since 2020-08-02
  */
 @Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class FeedEntry implements Serializable {
 
@@ -34,16 +36,11 @@ public class FeedEntry implements Serializable {
 
     private String url;
 
+    private Long feedId;
+
     private LocalDateTime inserted;
 
     private LocalDateTime updated;
 
-    //feed对象
-    private Feed feed;
-    //feed对象内容
-    private FeedEntryContent content;
-    //feed对象状态
-    private Set<FeedEntryStatus> statuses;
-    //feed对象标签
-    private Set<FeedEntryTag> tags;
+
 }

@@ -1,10 +1,7 @@
 package com.gk4u.rss.backend.mapper;
 
-import com.gk4u.rss.backend.entity.FeedEntry;
-import com.gk4u.rss.backend.entity.FeedEntryStatus;
+import com.gk4u.rss.backend.entity.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gk4u.rss.backend.entity.FeedSubscription;
-import com.gk4u.rss.backend.entity.User;
 import com.gk4u.rss.backend.feed.FeedEntryKeyword;
 import com.gk4u.rss.frontend.model.UnreadCount;
 import org.springframework.stereotype.Component;
@@ -27,11 +24,11 @@ public interface FeedEntryStatusMapper extends BaseMapper<FeedEntryStatus> {
     public FeedEntryStatus getStatus(User user, FeedSubscription sub, FeedEntry entry);
 
     //找出星标状态
-//    public List<FeedEntryStatus> findStarred(User user, Date newerThan, int offset, int limit, ReadingOrder order, boolean includeContent);
+    public List<FeedEntryStatus> findStarred(User user, Date newerThan, int offset, int limit, UserSetting.ReadingOrder order, boolean includeContent);
 
-//    public List<FeedEntryStatus> findBySubscriptions(User user, List<FeedSubscription> subs, boolean unreadOnly,
-//                                                     List<FeedEntryKeyword> keywords, Date newerThan, int offset, int limit, ReadingOrder order, boolean includeContent,
-//                                                     boolean onlyIds, String tag);
+    public List<FeedEntryStatus> findBySubscriptions(User user, List<FeedSubscription> subs, boolean unreadOnly,
+                                                     List<FeedEntryKeyword> keywords, Date newerThan, int offset, int limit, UserSetting.ReadingOrder order, boolean includeContent,
+                                                     boolean onlyIds, String tag);
 
     //通过用户、订阅获取未读数量
     public UnreadCount getUnreadCount(User user, FeedSubscription subscription);

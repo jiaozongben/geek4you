@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
@@ -15,6 +17,8 @@ import lombok.EqualsAndHashCode;
  * @since 2020-07-31
  */
 @Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = false)
 public class FeedSubscription implements Serializable {
 

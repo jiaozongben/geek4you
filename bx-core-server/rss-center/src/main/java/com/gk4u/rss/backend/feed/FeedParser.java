@@ -90,7 +90,7 @@ public class FeedParser {
                     content.setEnclosureType(enclosure.getType());
                 }
                 //todo
-//                entry.setContent(content);
+                entry.setContent(content);
 
                 entries.add(entry);
             }

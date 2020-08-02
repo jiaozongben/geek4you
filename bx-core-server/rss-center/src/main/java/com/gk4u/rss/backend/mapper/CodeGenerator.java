@@ -56,14 +56,19 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-//        dsc.setUrl("jdbc:mysql://192.168.0.190:3306/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false");
-        dsc.setUrl("jdbc:mysql://10.164.204.153:32436/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false");
+
+//        dsc.setUrl("jdbc:mysql://10.164.204.153:32436/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false");
+//        dsc.setUsername("admin");
+//        dsc.setPassword("admin");
+
+        dsc.setUrl("jdbc:mysql://192.168.0.190:3306/rss-center?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false");
+        dsc.setUsername("root");
+        dsc.setPassword("root");
+
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
-//        dsc.setUsername("root");
-//        dsc.setPassword("root");
-        dsc.setUsername("admin");
-        dsc.setPassword("admin");
+
+
 
         mpg.setDataSource(dsc);
 

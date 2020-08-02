@@ -61,8 +61,10 @@ public class feedTest {
         Date disabledUntil = DateUtils.addMinutes(new Date(), refreshInterval);
 
         String url = Optional.ofNullable(feed.getUrlAfterRedirect()).orElse(feed.getUrl());
-        FetchedFeed fetchedFeed = fetcher.fetch(url, false, feed.getLastModifiedHeader(), feed.getEtagHeader(),
-                DateUtil.localDateTime2Date(feed.getLastPublishedDate()), feed.getLastContentHash());
+        FetchedFeed fetchedFeed = fetcher.fetch(url, false, null, null,
+                null, null);
+//        FetchedFeed fetchedFeed = fetcher.fetch(url, false, feed.getLastModifiedHeader(), feed.getEtagHeader(),
+//                DateUtil.localDateTime2Date(feed.getLastPublishedDate()), feed.getLastContentHash());
         // stops here if NotModifiedException or any other exception is thrown
         List<FeedEntry> entries = fetchedFeed.getEntries();
 
@@ -70,6 +72,7 @@ public class feedTest {
         if (maxFeedCapacity > 0) {
             entries = entries.stream().limit(maxFeedCapacity).collect(Collectors.toList());
         }
+        System.out.println("resp: " + JSONObject.toJSONString(fetchedFeed));
 
         if (config.getHeavyLoad()) {
 

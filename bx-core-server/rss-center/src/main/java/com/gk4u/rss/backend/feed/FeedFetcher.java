@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Set;
 
@@ -37,7 +38,10 @@ public class FeedFetcher {
 
         HttpGetter.HttpResult result = getter.getBinary(feedUrl, lastModified, eTag, timeout);
         byte[] content = result.getContent();
+        String str = new String(content, StandardCharsets.UTF_8);
+        System.out.println("resp bytes:" + str);
 
+//        log.debug("http.getter返回报文:" + str);
         try {
             fetchedFeed = parser.parse(result.getUrlAfterRedirect(), content);
         } catch (FeedException e) {
