@@ -3,11 +3,12 @@ package com.gk4u.rss.backend.feed;
 
 import com.gk4u.rss.backend.HttpGetter;
 
-import com.gk4u.rss.backend.entity.Feed;
+
+import com.gk4u.rss.backend.entity.FeedSubscription;
 import com.gk4u.rss.backend.urlprovider.FeedURLProvider;
 import com.gk4u.rss.backend.util.DateUtil;
+
 import com.rometools.rome.io.FeedException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.tomcat.util.codec.binary.StringUtils;
@@ -27,9 +28,10 @@ public class FeedFetcher {
     private FeedParser parser;
     @Autowired
     private HttpGetter getter;
+
     private Set<FeedURLProvider> urlProviders;
 
-    public FetchedFeed fetch(String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, Date lastPublishedDate,
+    public FetchedFeed fetch(String feed_id, String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, Date lastPublishedDate,
                              String lastContentHash) throws FeedException, IOException, HttpGetter.NotModifiedException {
         log.debug("Fetching feed {}", feedUrl);
         FetchedFeed fetchedFeed = null;
@@ -39,20 +41,19 @@ public class FeedFetcher {
         HttpGetter.HttpResult result = getter.getBinary(feedUrl, lastModified, eTag, timeout);
         byte[] content = result.getContent();
         String str = new String(content, StandardCharsets.UTF_8);
-        System.out.println("resp bytes:" + str);
 
-//        log.debug("http.getter返回报文:" + str);
+        log.debug("resp bytes: {}", str);
+
         try {
-            fetchedFeed = parser.parse(result.getUrlAfterRedirect(), content);
+            fetchedFeed = parser.parse(feed_id, result.getUrlAfterRedirect(), content);
         } catch (FeedException e) {
             if (extractFeedUrlFromHtml) {
                 String extractedUrl = extractFeedUrl(urlProviders, feedUrl, StringUtils.newStringUtf8(result.getContent()));
                 if (org.apache.commons.lang3.StringUtils.isNotBlank(extractedUrl)) {
                     feedUrl = extractedUrl;
-
                     result = getter.getBinary(extractedUrl, lastModified, eTag, timeout);
                     content = result.getContent();
-                    fetchedFeed = parser.parse(result.getUrlAfterRedirect(), content);
+                    fetchedFeed = parser.parse(feed_id, result.getUrlAfterRedirect(), content);
                 } else {
                     throw e;
                 }
@@ -71,16 +72,6 @@ public class FeedFetcher {
             throw new HttpGetter.NotModifiedException("content hash not modified");
         }
 
-        if (lastPublishedDate != null && fetchedFeed.getFeed().getLastPublishedDate() != null
-                && lastPublishedDate.getTime() == DateUtil.localDateTime2Date(fetchedFeed.getFeed().getLastPublishedDate()).getTime()) {
-            log.debug("publishedDate not modified: {}", feedUrl);
-            throw new HttpGetter.NotModifiedException("publishedDate not modified");
-        }
-
-        Feed feed = fetchedFeed.getFeed();
-        feed.setLastModifiedHeader(result.getLastModifiedSince());
-        feed.setEtagHeader(FeedUtils.truncate(result.getETag(), 255));
-        feed.setLastContentHash(hash);
         fetchedFeed.setFetchDuration(result.getDuration());
         fetchedFeed.setUrlAfterRedirect(result.getUrlAfterRedirect());
         return fetchedFeed;

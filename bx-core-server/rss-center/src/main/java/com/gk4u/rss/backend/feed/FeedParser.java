@@ -1,15 +1,14 @@
 package com.gk4u.rss.backend.feed;
 
 
-import com.gk4u.rss.backend.entity.Feed;
 import com.gk4u.rss.backend.entity.FeedEntry;
-import com.gk4u.rss.backend.entity.FeedEntryContent;
+import com.gk4u.rss.backend.entity.FeedSubscription;
 import com.gk4u.rss.backend.util.DateUtil;
 import com.google.common.collect.Iterables;
+import com.rometools.rome.feed.atom.Feed;
 import com.rometools.rome.feed.synd.*;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Element;
@@ -21,6 +20,7 @@ import org.xml.sax.InputSource;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,9 +35,9 @@ public class FeedParser {
     private static final Date START = new Date(86400000);
     private static final Date END = new Date(1000l * Integer.MAX_VALUE - 86400000);
 
-    public FetchedFeed parse(String feedUrl, byte[] xml) throws FeedException {
+    public FetchedFeed parse(String feed_id,String feedUrl, byte[] xml) throws FeedException {
         FetchedFeed fetchedFeed = new FetchedFeed();
-        Feed feed = fetchedFeed.getFeed();
+        FeedSubscription feedSubscription = fetchedFeed.getFeedSubscription();
         List<FeedEntry> entries = fetchedFeed.getEntries();
 
         try {
@@ -52,10 +52,7 @@ public class FeedParser {
             handleForeignMarkup(rss);
 
             fetchedFeed.setTitle(rss.getTitle());
-            feed.setPushHub(findHub(rss));
-            feed.setPushTopic(findSelf(rss));
-            feed.setUrl(feedUrl);
-            feed.setLink(rss.getLink());
+            feedSubscription.setUrl(feedUrl);
             List<SyndEntry> items = rss.getEntries();
 
             for (SyndEntry item : items) {
@@ -69,46 +66,23 @@ public class FeedParser {
                     // no guid and no link, skip entry
                     continue;
                 }
-                entry.setGuid(FeedUtils.truncate(guid, 2048));
-                entry.setUpdated(DateUtil.date2LocalDate(validateDate(getEntryUpdateDate(item), true)));
-                entry.setUrl(FeedUtils.truncate(FeedUtils.toAbsoluteUrl(item.getLink(), feed.getLink(), feedUrl), 2048));
 
-                // if link is empty but guid is used as url
-                if (StringUtils.isBlank(entry.getUrl()) && StringUtils.startsWith(entry.getGuid(), "http")) {
-                    entry.setUrl(entry.getGuid());
-                }
-
-                FeedEntryContent content = new FeedEntryContent();
-                content.setContent(getContent(item));
-                content.setCategories(FeedUtils.truncate(
-                        item.getCategories().stream().map(c -> c.getName()).collect(Collectors.joining(", ")), 4096));
-                content.setTitle(getTitle(item));
-                content.setAuthor(StringUtils.trimToNull(item.getAuthor()));
-                SyndEnclosure enclosure = Iterables.getFirst(item.getEnclosures(), null);
-                if (enclosure != null) {
-                    content.setEnclosureUrl(FeedUtils.truncate(enclosure.getUrl(), 2048));
-                    content.setEnclosureType(enclosure.getType());
-                }
-                //todo
-                entry.setContent(content);
+                entry.setUrl(FeedUtils.truncate(FeedUtils.toAbsoluteUrl(item.getLink(), feedSubscription.getUrl(), feedUrl), 2048));
+                entry.setContent(getContent(item));
+                entry.setTitle(getTitle(item));
+                entry.setInserted(LocalDateTime.now());
+                entry.setFeedId(Long.valueOf(feed_id));
 
                 entries.add(entry);
             }
-            Date lastEntryDate = null;
-            Date publishedDate = validateDate(rss.getPublishedDate(), false);
-            if (!entries.isEmpty()) {
-                List<Long> sortedTimestamps = FeedUtils.getSortedTimestamps(entries);
-                Long timestamp = sortedTimestamps.get(0);
-                lastEntryDate = new Date(timestamp);
-                publishedDate = (publishedDate == null || publishedDate.before(lastEntryDate)) ? lastEntryDate : publishedDate;
-            }
-            feed.setLastPublishedDate(DateUtil.date2LocalDate(publishedDate));
-            feed.setAverageEntryInterval(FeedUtils.averageTimeBetweenEntries(entries));
-            feed.setLastEntryDate(DateUtil.date2LocalDate(lastEntryDate));
+            feedSubscription.setFeedId(Long.valueOf(feed_id));
+            feedSubscription.setUrl(feedUrl);
 
+            fetchedFeed.setFeedSubscription(feedSubscription);
         } catch (Exception e) {
             throw new FeedException(String.format("Could not parse feed from %s : %s", feedUrl, e.getMessage()), e);
         }
+
         return fetchedFeed;
     }
 

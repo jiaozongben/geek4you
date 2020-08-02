@@ -405,7 +405,8 @@ public class FeedUtils {
     }
 
     public static List<Long> getSortedTimestamps(List<FeedEntry> entries) {
-        return entries.stream().map(t -> DateUtil.localDateTime2Date(t.getUpdated()).getTime()).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+//        return entries.stream().map(t -> DateUtil.localDateTime2Date(t.getUpdated()).getTime()).sorted(Collections.reverseOrder()).collect(Collectors.toList());
+        return null;
     }
 
     public static String removeTrailingSlash(String url) {

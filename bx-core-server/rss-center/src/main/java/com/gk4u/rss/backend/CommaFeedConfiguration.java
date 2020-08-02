@@ -1,4 +1,4 @@
-package com.gk4u.rss;
+package com.gk4u.rss.backend;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

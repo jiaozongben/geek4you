@@ -2,8 +2,9 @@ package com.gk4u.rss.backend.feed;
 
 
 
-import com.gk4u.rss.backend.entity.Feed;
+
 import com.gk4u.rss.backend.entity.FeedEntry;
+import com.gk4u.rss.backend.entity.FeedSubscription;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 public class FetchedFeed {
 
-	private Feed feed = new Feed();
+	private FeedSubscription feedSubscription = new FeedSubscription();
 	private List<FeedEntry> entries = new ArrayList<>();
 
 	private String title;
