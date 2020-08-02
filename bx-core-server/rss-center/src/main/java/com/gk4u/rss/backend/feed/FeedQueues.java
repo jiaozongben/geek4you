@@ -7,14 +7,12 @@ import com.gk4u.rss.backend.entity.FeedSubscription;
 
 import com.gk4u.rss.backend.mapper.FeedSubscriptionMapper;
 import com.gk4u.rss.backend.service.impl.FeedSubscriptionServiceImpl;
-import com.gk4u.rss.backend.util.DateUtil;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 
 public class FeedQueues {
@@ -22,7 +20,7 @@ public class FeedQueues {
     @Autowired
     private FeedSubscriptionMapper feedSubscriptionMapper;
     @Autowired
-    private FeedSubscriptionServiceImpl feedService;
+    private FeedSubscriptionServiceImpl feedSubscriptionService;
     @Autowired
     private final CommaFeedConfiguration config;
 
@@ -74,15 +72,15 @@ public class FeedQueues {
         for (int i = 0; i < Math.min(batchSize, addQueueSize); i++) {
             contexts.add(addQueue.poll());
         }
-//
-//        // add feeds that are up to refresh from the database
-//        int count = batchSize - contexts.size();
-//        if (count > 0) {
-//            List<Feed> feeds = feedService.findNextUpdatable(count, getLastLoginThreshold());
-//            for (Feed feed : feeds) {
-//                contexts.add(new FeedRefreshContext(feed, false));
-//            }
-//        }
+
+        // add feeds that are up to refresh from the database
+        int count = batchSize - contexts.size();
+        if (count > 0) {
+            List<FeedSubscription> subscriptions = feedSubscriptionService.findNextUpdatable(count, getLastLoginThreshold());
+            for (FeedSubscription feedSubscription : subscriptions) {
+                contexts.add(new FeedRefreshContext(feedSubscription, false));
+            }
+        }
 //
 //        // set the disabledDate as we use it in feedSubscriptionMapper to decide what to refresh next. We also use a map to remove
 //        // duplicates.
@@ -105,7 +103,7 @@ public class FeedQueues {
 //
 //        // update all feeds in the database
 //        List<Feed> feeds = map.values().stream().map(c -> c.getFeedSubscription()).collect(Collectors.toList());
-//        feedService.saveBatch(feeds);
+//        feedSubscriptionService.saveBatch(feeds);
     }
 
     /**

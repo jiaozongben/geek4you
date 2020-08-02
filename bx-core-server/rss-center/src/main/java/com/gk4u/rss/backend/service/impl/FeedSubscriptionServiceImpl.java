@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author James Bond
@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class FeedSubscriptionServiceImpl extends ServiceImpl<FeedSubscriptionMapper, FeedSubscription> implements IFeedSubscriptionService {
 
+    public void findNextUpdatable() {
+    }
+
+    ;
 }
