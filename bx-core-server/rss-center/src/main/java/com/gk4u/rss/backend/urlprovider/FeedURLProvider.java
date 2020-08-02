@@ -1,7 +1,7 @@
 package com.gk4u.rss.backend.urlprovider;
 
 /**
- * Tries to find a feed url given the url and page content
+ * Tries to find a feedSubscription url given the url and page content
  */
 public interface FeedURLProvider {
 

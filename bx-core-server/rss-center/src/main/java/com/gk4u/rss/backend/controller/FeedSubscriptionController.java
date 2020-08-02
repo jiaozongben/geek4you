@@ -37,7 +37,7 @@ public class FeedSubscriptionController {
 //    @Autowired
 //    FeedEntryStatusMapper feedEntryStatusMapper;
 //
-//    @RequestMapping(value = "/entries", method = RequestMethod.GET, name = "Get feed entries")
+//    @RequestMapping(value = "/entries", method = RequestMethod.GET, name = "Get feedSubscription entries")
 //    public List<FeedEntry> findByUserName(
 //            @RequestParam(value = "user", name = "userid", required = true) int userid,
 //            @RequestParam(value = "id", name = "feedid", required = true) Long feed_id,

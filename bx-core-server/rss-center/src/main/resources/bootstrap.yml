@@ -145,14 +145,14 @@ app:
   # leave this to false in almost all cases
   heavyLoad: false
 
-  # minimum amount of time commafeed will wait before refreshing the same feed
+  # minimum amount of time commafeed will wait before refreshing the same feedSubscription
   refreshIntervalMinutes: 5
 
   # wether to enable pubsub
   # probably not needed if refreshIntervalMinutes is low
   pubsubhubbub: false
 
-  # if enabled, images in feed entries will be proxied through the server instead of accessed directly by the browser
+  # if enabled, images in feedSubscription entries will be proxied through the server instead of accessed directly by the browser
   # useful if commafeed is usually accessed through a restricting proxy
   imageProxyEnabled: false
 
@@ -162,7 +162,7 @@ app:
   # time to keep unread statuses (in days), 0 to disable
   keepStatusDays: 0
 
-  # entries to keep per feed, old entries will be deleted, 0 to disable
+  # entries to keep per feedSubscription, old entries will be deleted, 0 to disable
   maxFeedCapacity: 500
 
   # cache service to use, possible values are 'noop' and 'redis'

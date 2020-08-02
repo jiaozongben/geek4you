@@ -80,7 +80,7 @@ public class FeedParser {
 
             fetchedFeed.setFeedSubscription(feedSubscription);
         } catch (Exception e) {
-            throw new FeedException(String.format("Could not parse feed from %s : %s", feedUrl, e.getMessage()), e);
+            throw new FeedException(String.format("Could not parse feedSubscription from %s : %s", feedUrl, e.getMessage()), e);
         }
 
         return fetchedFeed;
@@ -156,7 +156,7 @@ public class FeedParser {
     private String findHub(SyndFeed feed) {
         for (SyndLink l : feed.getLinks()) {
             if ("hub".equalsIgnoreCase(l.getRel())) {
-                log.debug("found hub {} for feed {}", l.getHref(), feed.getLink());
+                log.debug("found hub {} for feedSubscription {}", l.getHref(), feed.getLink());
                 return l.getHref();
             }
         }
@@ -166,7 +166,7 @@ public class FeedParser {
     private String findSelf(SyndFeed feed) {
         for (SyndLink l : feed.getLinks()) {
             if ("self".equalsIgnoreCase(l.getRel())) {
-                log.debug("found self {} for feed {}", l.getHref(), feed.getLink());
+                log.debug("found self {} for feedSubscription {}", l.getHref(), feed.getLink());
                 return l.getHref();
             }
         }

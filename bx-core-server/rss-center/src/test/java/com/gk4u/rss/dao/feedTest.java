@@ -45,11 +45,11 @@ public class feedTest {
 //
 //    @Test
 //    public void insertTest() throws HttpGetter.NotModifiedException, IOException, FeedException {
-//        Feed feed = new Feed();
-//        feed.setUrl("https://jiaozongben.github.io/feed.xml");
+//        Feed feedSubscription = new Feed();
+//        feedSubscription.setUrl("https://jiaozongben.github.io/feed.xml");
 //
 //
-//        feedMapper.insert(feed);
+//        feedMapper.insert(feedSubscription);
 //
 //    }
 

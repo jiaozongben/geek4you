@@ -47,7 +47,7 @@
 //        this.cache = cache;
 //
 //        int threads = Math.max(config.getDatabaseUpdateThreads(), 1);
-//        pool = new FeedRefreshExecutor("feed-refresh-updater", threads, Math.min(50 * threads, 1000));
+//        pool = new FeedRefreshExecutor("feedSubscription-refresh-updater", threads, Math.min(50 * threads, 1000));
 //        locks = Striped.lazyWeakLock(threads * 100000);
 //
 //
@@ -59,7 +59,7 @@
 //
 //
 //    public void stop() throws Exception {
-//        log.info("shutting down feed refresh updater");
+//        log.info("shutting down feedSubscription refresh updater");
 //        pool.shutdown();
 //    }
 //
@@ -78,7 +78,7 @@
 //        @Override
 //        public void run() {
 //            boolean ok = true;
-//            final Feed feed = context.getFeed();
+//            final Feed feed = context.getFeedSubscription();
 //            List<FeedEntry> entries = context.getEntries();
 //            if (entries.isEmpty()) {
 //                feed.setMessage("Feed has no entries");
@@ -92,7 +92,7 @@
 //                    if (!lastEntries.contains(cacheKey)) {
 //                        log.debug("cache miss for {}", entry.getUrl());
 //                        if (subscriptions == null) {
-////                            subscriptions = feedSubscriptionDAO.findByFeed(feed);
+////                            subscriptions = feedSubscriptionDAO.findByFeed(feedSubscription);
 //                            subscriptions = null;
 //                        }
 //                        ok &= addEntry(feed, entry, subscriptions);
@@ -115,7 +115,7 @@
 //            }
 //
 ////            if (config.getPubsubhubbub()) {
-////                handlePubSub(feed);
+////                handlePubSub(feedSubscription);
 ////            }
 //            if (!ok) {
 //                // requeue asap
@@ -133,7 +133,7 @@
 //    private boolean addEntry(final Feed feed, final FeedEntry entry, final List<FeedSubscription> subscriptions) {
 //        boolean success = false;
 //
-//        // lock on feed, make sure we are not updating the same feed twice at
+//        // lock on feedSubscription, make sure we are not updating the same feedSubscription twice at
 //        // the same time
 //        String key1 = StringUtils.trimToEmpty("" + feed.getId());
 //

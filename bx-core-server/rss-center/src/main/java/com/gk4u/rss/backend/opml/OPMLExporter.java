@@ -5,9 +5,9 @@
 //import com.commafeed.backend.model.FeedCategory;
 //import com.commafeed.backend.model.FeedSubscription;
 //import com.commafeed.backend.model.User;
-//import com.rometools.opml.feed.opml.Attribute;
-//import com.rometools.opml.feed.opml.Opml;
-//import com.rometools.opml.feed.opml.Outline;
+//import com.rometools.opml.feedSubscription.opml.Attribute;
+//import com.rometools.opml.feedSubscription.opml.Opml;
+//import com.rometools.opml.feedSubscription.opml.Outline;
 //import lombok.RequiredArgsConstructor;
 //import org.apache.commons.lang3.ObjectUtils;
 //
@@ -75,9 +75,9 @@
 //		outline.setText(sub.getTitle());
 //		outline.setTitle(sub.getTitle());
 //		outline.setType("rss");
-//		outline.getAttributes().add(new Attribute("xmlUrl", sub.getFeed().getUrl()));
-//		if (sub.getFeed().getLink() != null) {
-//			outline.getAttributes().add(new Attribute("htmlUrl", sub.getFeed().getLink()));
+//		outline.getAttributes().add(new Attribute("xmlUrl", sub.getFeedSubscription().getUrl()));
+//		if (sub.getFeedSubscription().getLink() != null) {
+//			outline.getAttributes().add(new Attribute("htmlUrl", sub.getFeedSubscription().getLink()));
 //		}
 //		return outline;
 //	}

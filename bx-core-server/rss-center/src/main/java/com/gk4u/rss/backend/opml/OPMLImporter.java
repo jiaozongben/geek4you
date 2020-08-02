@@ -2,13 +2,13 @@
 //
 //import com.commafeed.backend.cache.CacheService;
 //import com.commafeed.backend.dao.FeedCategoryDAO;
-//import com.commafeed.backend.feed.FeedUtils;
+//import com.commafeed.backend.feedSubscription.FeedUtils;
 //import com.commafeed.backend.model.FeedCategory;
 //import com.commafeed.backend.model.User;
 //import com.commafeed.backend.service.FeedSubscriptionService;
 //import com.commafeed.backend.service.FeedSubscriptionService.FeedSubscriptionException;
-//import com.rometools.opml.feed.opml.Opml;
-//import com.rometools.opml.feed.opml.Outline;
+//import com.rometools.opml.feedSubscription.opml.Opml;
+//import com.rometools.opml.feedSubscription.opml.Outline;
 //import com.rometools.rome.io.WireFeedInput;
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
@@ -33,8 +33,8 @@
 //		xml = xml.substring(xml.indexOf('<'));
 //		WireFeedInput input = new WireFeedInput();
 //		try {
-//			Opml feed = (Opml) input.build(new StringReader(xml));
-//			List<Outline> outlines = feed.getOutlines();
+//			Opml feedSubscription = (Opml) input.build(new StringReader(xml));
+//			List<Outline> outlines = feedSubscription.getOutlines();
 //			for (int i = 0; i < outlines.size(); i++) {
 //				handleOutline(user, outlines.get(i), null, i);
 //			}
@@ -76,7 +76,7 @@
 //			if (StringUtils.isBlank(name)) {
 //				name = "Unnamed subscription";
 //			}
-//			// make sure we continue with the import process even if a feed failed
+//			// make sure we continue with the import process even if a feedSubscription failed
 //			try {
 //				feedSubscriptionService.subscribe(user, outline.getXmlUrl(), name, parent, position);
 //			} catch (FeedSubscriptionException e) {

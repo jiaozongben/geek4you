@@ -3,12 +3,9 @@ package com.gk4u.rss.backend.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>
@@ -19,8 +16,6 @@ import lombok.Setter;
  * @since 2020-08-02
  */
 @Data
-@Getter
-@Setter
 @EqualsAndHashCode(callSuper = false)
 public class FeedEntry implements Serializable {
 
@@ -29,18 +24,15 @@ public class FeedEntry implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String guid;
-
-    @TableField("guidHash")
-    private String guidHash;
+    private Long feedId;
 
     private String url;
 
-    private Long feedId;
+    private String title;
+
+    private String content;
 
     private LocalDateTime inserted;
-
-    private LocalDateTime updated;
 
 
 }

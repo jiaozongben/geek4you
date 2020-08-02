@@ -9,18 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-28
+ * @since 2020-08-02
  */
 public interface UserMapper extends BaseMapper<User> {
-
-    //通过用户姓名查询回来所有的姓名
-    public User findByName(String name);
-
-    //通过api查询回来用户
-    public User findByApiKey(String key);
-
-    //通过email查询回来用户
-    public User findByEmail(String email);
-
 
 }

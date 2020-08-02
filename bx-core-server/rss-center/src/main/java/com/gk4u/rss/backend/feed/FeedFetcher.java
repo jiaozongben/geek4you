@@ -33,7 +33,7 @@ public class FeedFetcher {
 
     public FetchedFeed fetch(String feed_id, String feedUrl, boolean extractFeedUrlFromHtml, String lastModified, String eTag, Date lastPublishedDate,
                              String lastContentHash) throws FeedException, IOException, HttpGetter.NotModifiedException {
-        log.debug("Fetching feed {}", feedUrl);
+        log.debug("Fetching feedSubscription {}", feedUrl);
         FetchedFeed fetchedFeed = null;
 
         int timeout = 20000;

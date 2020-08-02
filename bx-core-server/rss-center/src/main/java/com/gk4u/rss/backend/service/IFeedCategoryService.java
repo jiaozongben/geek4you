@@ -2,9 +2,6 @@ package com.gk4u.rss.backend.service;
 
 import com.gk4u.rss.backend.entity.FeedCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gk4u.rss.backend.entity.User;
-
-import java.util.List;
 
 /**
  * <p>
@@ -12,10 +9,8 @@ import java.util.List;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-28
+ * @since 2020-08-02
  */
 public interface IFeedCategoryService extends IService<FeedCategory> {
-
-
 
 }

@@ -5,7 +5,7 @@
 //
 //
 //
-//import com.gk4u.rss.backend.feed.FetchedFeed;
+//import com.gk4u.rss.backend.feedSubscription.FetchedFeed;
 //import com.gk4u.rss.backend.mapper.FeedMapper;
 //
 //import com.rometools.rome.io.FeedException;

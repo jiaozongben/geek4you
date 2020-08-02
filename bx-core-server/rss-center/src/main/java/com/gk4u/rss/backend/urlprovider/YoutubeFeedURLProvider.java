@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Workaround for Youtube channels
  * 
- * converts the channel URL https://www.youtube.com/channel/CHANNEL_ID to the valid feed URL
+ * converts the channel URL https://www.youtube.com/channel/CHANNEL_ID to the valid feedSubscription URL
  * https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
  */
 public class YoutubeFeedURLProvider implements FeedURLProvider {

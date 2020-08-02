@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>
@@ -14,11 +12,9 @@ import lombok.Setter;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-31
+ * @since 2020-08-02
  */
 @Data
-@Getter
-@Setter
 @EqualsAndHashCode(callSuper = false)
 public class FeedSubscription implements Serializable {
 
@@ -38,6 +34,8 @@ public class FeedSubscription implements Serializable {
     private Integer position;
 
     private String filter;
+
+    private String url;
 
 
 }

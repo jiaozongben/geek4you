@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author James Bond
- * @since 2020-07-31
+ * @since 2020-08-02
  */
 @Service
 public class FeedSubscriptionServiceImpl extends ServiceImpl<FeedSubscriptionMapper, FeedSubscription> implements IFeedSubscriptionService {

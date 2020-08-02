@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * Utility methods related to feed handling
+ * Utility methods related to feedSubscription handling
  */
 @Slf4j
 public class FeedUtils {
@@ -92,8 +92,8 @@ public class FeedUtils {
     }
 
     /**
-     * Detect feed encoding by using the declared encoding in the xml processing instruction and by detecting the characters used in the
-     * feed
+     * Detect feedSubscription encoding by using the declared encoding in the xml processing instruction and by detecting the characters used in the
+     * feedSubscription
      */
     public static Charset guessEncoding(byte[] bytes) {
         String extracted = extractDeclaredEncoding(bytes);
@@ -155,7 +155,7 @@ public class FeedUtils {
     }
 
     /**
-     * Normalize the url. The resulting url is not meant to be fetched but rather used as a mean to identify a feed and avoid duplicates
+     * Normalize the url. The resulting url is not meant to be fetched but rather used as a mean to identify a feedSubscription and avoid duplicates
      */
     public static String normalizeURL(String url) {
         if (url == null) {
@@ -340,7 +340,7 @@ public class FeedUtils {
     }
 
     /**
-     * When there was an error fetching the feed
+     * When there was an error fetching the feedSubscription
      */
     public static Date buildDisabledUntil(int errorCount) {
         Date now = new Date();
@@ -355,13 +355,13 @@ public class FeedUtils {
     }
 
     /**
-     * When the feed was refreshed successfully
+     * When the feedSubscription was refreshed successfully
      */
     public static Date buildDisabledUntil(Date publishedDate, Long averageEntryInterval, Date defaultRefreshInterval) {
         Date now = new Date();
 
         if (publishedDate == null) {
-            // feed with no entries, recheck in 24 hours
+            // feedSubscription with no entries, recheck in 24 hours
             return DateUtils.addHours(now, 24);
         } else if (publishedDate.before(DateUtils.addMonths(now, -1))) {
             // older than a month, recheck in 24 hours
@@ -418,8 +418,8 @@ public class FeedUtils {
 
     /**
      * @param url      the url of the entry
-     * @param feedLink the url of the feed as described in the feed
-     * @param feedUrl  the url of the feed that we used to fetch the feed
+     * @param feedLink the url of the feedSubscription as described in the feedSubscription
+     * @param feedUrl  the url of the feedSubscription that we used to fetch the feedSubscription
      * @return an absolute url pointing to the entry
      */
     public static String toAbsoluteUrl(String url, String feedLink, String feedUrl) {
@@ -451,7 +451,7 @@ public class FeedUtils {
     }
 
     public static String getFaviconUrl(FeedSubscription subscription, String publicUrl) {
-        return removeTrailingSlash(publicUrl) + "/rest/feed/favicon/" + subscription.getId();
+        return removeTrailingSlash(publicUrl) + "/rest/feedSubscription/favicon/" + subscription.getId();
     }
 
     public static String proxyImages(String content, String publicUrl) {
