@@ -17,8 +17,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class FeedSubscriptionServiceImpl extends ServiceImpl<FeedSubscriptionMapper, FeedSubscription> implements IFeedSubscriptionService {
 
-    public void findNextUpdatable() {
-    }
 
-    ;
 }

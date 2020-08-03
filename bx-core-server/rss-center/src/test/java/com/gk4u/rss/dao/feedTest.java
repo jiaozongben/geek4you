@@ -56,7 +56,10 @@ public class feedTest {
 
     @Test
     public void testFetcher() throws HttpGetter.NotModifiedException, IOException, FeedException {
-        FeedSubscription feedSubscription = feedSubscriptionMapper.selectById("1");
+//        FeedSubscription feedSubscription = feedSubscriptionMapper.selectById("1");
+        FeedSubscription feedSubscription = new FeedSubscription();
+        feedSubscription.setUrl("https://jiaozongben.github.io/feed.xml");
+        feedSubscription.setFeedId(1L);
 
         // --------------------
         int refreshInterval = config.getRefreshIntervalMinutes();
@@ -74,6 +77,6 @@ public class feedTest {
         }
 
         System.out.println("resp: " + JSONObject.toJSONString(fetchedFeed));
-        feedEntryService.saveBatch(entries);
+//        feedEntryService.saveBatch(entries);
     }
 }

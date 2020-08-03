@@ -2,8 +2,11 @@ package com.gk4u.rss.backend.feed;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -11,20 +14,25 @@ import java.util.concurrent.Executors;
  * Infinite loop fetching feeds from @FeedQueues and queuing them to the {@link FeedRefreshWorker} pool.
  */
 @Slf4j
+@Service
 public class FeedRefreshTaskGiver {
 
-    private final FeedQueues queues;
-    private final FeedRefreshWorker worker;
+    @Autowired
+    private FeedQueues queues;
+    @Autowired
+    private FeedRefreshWorker worker;
 
     private ExecutorService executor;
 
+    @PostConstruct
+    public void helloWorld() {
+        System.out.println("helloWorld");
 
-    public FeedRefreshTaskGiver(FeedQueues queues, FeedRefreshWorker worker) {
-        this.queues = queues;
-        this.worker = worker;
+        start();
+    }
 
+    public FeedRefreshTaskGiver() {
         executor = Executors.newFixedThreadPool(1);
-
     }
 
 

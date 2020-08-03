@@ -2,11 +2,10 @@
 //
 //
 //import com.gk4u.rss.backend.CommaFeedConfiguration;
-//import com.gk4u.rss.backendbak.cache.CacheService;
-//import com.gk4u.rss.backendbak.entity.*;
-//import com.gk4u.rss.backendbak.mapper.FeedSubscriptionMapper;
-//import com.gk4u.rss.backendbak.service.FeedUpdateService;
-//import com.gk4u.rss.backendbak.service.PubSubService;
+//import com.gk4u.rss.backend.entity.FeedEntry;
+//import com.gk4u.rss.backend.entity.FeedSubscription;
+//
+//import com.gk4u.rss.backend.mapper.FeedSubscriptionMapper;
 //import com.gk4u.rss.backend.util.DateUtil;
 //import com.google.common.util.concurrent.Striped;
 //
@@ -25,7 +24,7 @@
 //
 //
 //    private final FeedUpdateService feedUpdateService;
-//    private final PubSubService pubSubService;
+//
 //    private final FeedQueues queues;
 //    private final CommaFeedConfiguration config;
 //    private final FeedSubscriptionMapper feedSubscriptionDAO;
@@ -78,51 +77,35 @@
 //        @Override
 //        public void run() {
 //            boolean ok = true;
-//            final Feed feed = context.getFeedSubscription();
+//            final FeedSubscription feedSubscription = context.getFeedSubscription();
 //            List<FeedEntry> entries = context.getEntries();
 //            if (entries.isEmpty()) {
-//                feed.setMessage("Feed has no entries");
+//                System.out.println("feed is empty.");
 //            } else {
-//                List<String> lastEntries = cache.getLastEntries(feed);
+//                List<String> lastEntries = cache.getLastEntries(feedSubscription);
 //                List<String> currentEntries = new ArrayList<>();
 //
 //                List<FeedSubscription> subscriptions = null;
 //                for (FeedEntry entry : entries) {
-//                    String cacheKey = cache.buildUniqueEntryKey(feed, entry);
+//                    String cacheKey = cache.buildUniqueEntryKey(feedSubscription, entry);
 //                    if (!lastEntries.contains(cacheKey)) {
 //                        log.debug("cache miss for {}", entry.getUrl());
 //                        if (subscriptions == null) {
 ////                            subscriptions = feedSubscriptionDAO.findByFeed(feedSubscription);
 //                            subscriptions = null;
 //                        }
-//                        ok &= addEntry(feed, entry, subscriptions);
+//                        ok &= addEntry(feedSubscription, entry, subscriptions);
 //                    } else {
 //                        log.debug("cache hit for {}", entry.getUrl());
 //                    }
 //
 //                    currentEntries.add(cacheKey);
 //                }
-//                cache.setLastEntries(feed, currentEntries);
+//                cache.setLastEntries(feedSubscription, currentEntries);
 //
-//                if (subscriptions == null) {
-//                    feed.setMessage("No new entries found");
-//                } else if (!subscriptions.isEmpty()) {
-////                    List<User> users = subscriptions.stream().map(s -> s.getUser()).collect(Collectors.toList());
-//                    List<User> users = null;
-//                    cache.invalidateUnreadCount(subscriptions.toArray(new FeedSubscription[0]));
-//                    cache.invalidateUserRootCategory(users.toArray(new User[0]));
-//                }
 //            }
 //
-////            if (config.getPubsubhubbub()) {
-////                handlePubSub(feedSubscription);
-////            }
-//            if (!ok) {
-//                // requeue asap
-//                feed.setDisabledUntil(DateUtil.date2LocalDate(new Date(0)));
-//            }
-//
-//            queues.giveBack(feed);
+//            queues.giveBack(feedSubscription);
 //        }
 //
 //        public boolean isUrgent() {

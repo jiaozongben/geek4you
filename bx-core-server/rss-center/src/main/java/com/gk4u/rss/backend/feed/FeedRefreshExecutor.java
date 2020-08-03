@@ -40,6 +40,7 @@ public class FeedRefreshExecutor {
     }
 
     public static interface Task extends Runnable {
+        boolean isUrgent();
     }
 
     public void shutdown() {

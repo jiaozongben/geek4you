@@ -11,10 +11,14 @@ import com.gk4u.rss.backend.HttpGetter;
 import com.gk4u.rss.backend.entity.FeedEntry;
 import com.gk4u.rss.backend.entity.FeedSubscription;
 
+import com.gk4u.rss.backend.mapper.FeedEntryMapper;
+import com.gk4u.rss.backend.service.impl.FeedEntryServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
@@ -22,11 +26,18 @@ import java.util.Date;
  * Calls {@link FeedFetcher} and handles its outcome
  */
 @Slf4j
-
+@Service
 public class FeedRefreshWorker {
 
-    private final FeedFetcher fetcher;
+    @Autowired
+    private  FeedFetcher fetcher;
+
     private final FeedQueues queues;
+//    @Autowired
+//    private FeedRefreshUpdater feedRefreshUpdater;
+    @Autowired
+    private FeedEntryServiceImpl feedEntryService;
+    @Autowired
     private final CommaFeedConfiguration config;
     private FeedRefreshExecutor pool;
 
@@ -36,8 +47,8 @@ public class FeedRefreshWorker {
         this.fetcher = fetcher;
         this.config = config;
         this.queues = queues;
-//		int threads = config.getApplicationSettings().getBackgroundThreads();
-//		pool = new FeedRefreshExecutor("feedSubscription-refresh-worker", threads, Math.min(20 * threads, 1000) );
+		int threads = config.getBackgroundThreads();
+		pool = new FeedRefreshExecutor("feedSubscription-refresh-worker", threads, Math.min(20 * threads, 1000) );
     }
 
 
@@ -63,6 +74,7 @@ public class FeedRefreshWorker {
 
         @Override
         public void run() {
+            System.out.println("123123");
             update(context);
         }
 
@@ -73,18 +85,21 @@ public class FeedRefreshWorker {
     }
 
     private void update(FeedRefreshContext context) {
+        System.out.println("456456");
         FeedSubscription feedSubscription = context.getFeedSubscription();
         int refreshInterval = config.getRefreshIntervalMinutes();
         Date disabledUntil = DateUtils.addMinutes(new Date(), refreshInterval);
         try {
             String url = context.getFeedSubscription().getUrl();
-            FetchedFeed fetchedFeed = fetcher.fetch(String.valueOf(feedSubscription.getFeedId()),url, false, null, null,
-                    null,null);
+            FetchedFeed fetchedFeed = fetcher.fetch(String.valueOf(feedSubscription.getFeedId()), url, false, null, null,
+                    null, null);
             // stops here if NotModifiedException or any other exception is thrown
             List<FeedEntry> entries = fetchedFeed.getEntries();
 
             context.setEntries(entries);
 //            feedRefreshUpdater.updateFeed(context);
+            feedEntryService.saveBatch(entries);
+
 
         } catch (HttpGetter.NotModifiedException e) {
             log.debug("Feed not modified : {} - {}", feedSubscription.getUrl(), e.getMessage());

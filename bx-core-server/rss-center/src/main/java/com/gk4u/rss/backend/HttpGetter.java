@@ -47,7 +47,6 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Slf4j
-
 @Component
 public class HttpGetter {
 
@@ -97,7 +96,11 @@ public class HttpGetter {
 		HttpResult result = null;
 		long start = System.currentTimeMillis();
 
+
 		CloseableHttpClient client = newClient(timeout);
+//		CloseableHttpClient client = newProxyClient();
+
+
 		CloseableHttpResponse response = null;
 		try {
 			HttpGet httpget = new HttpGet(url);
@@ -180,6 +183,17 @@ public class HttpGetter {
 		private final String urlAfterRedirect;
 	}
 
+
+	public static CloseableHttpClient newProxyClient(){
+		HttpHost proxy = new HttpHost("10.164.204.153", 3128, "http");
+		//把代理设置到请求配置
+		RequestConfig defaultRequestConfig = RequestConfig.custom()
+				.setProxy(proxy)
+				.build();
+		CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+
+		return httpclient;
+	}
 	public static CloseableHttpClient newClient(int timeout) {
 		HttpClientBuilder builder = HttpClients.custom();
 		builder.useSystemProperties();

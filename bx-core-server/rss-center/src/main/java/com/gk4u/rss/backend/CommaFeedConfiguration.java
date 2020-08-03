@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
 
 @Getter
 @Configuration  //证明这是一个配置类
+@Component
 @PropertySource(value = {"classpath:application.yml"}, ignoreResourceNotFound = true)//可以放多个,{}里面用,分开
 public class CommaFeedConfiguration {
     @Value("${app.backgroundThreads}")

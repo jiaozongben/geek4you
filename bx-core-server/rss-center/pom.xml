@@ -183,6 +183,14 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.3</version>
         </dependency>
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.flywaydb/flyway-core &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.flywaydb</groupId>-->
+            <!--<artifactId>flyway-core</artifactId>-->
+            <!--<version>5.2.4</version>-->
+        <!--</dependency>-->
+
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName><!--打jar包去掉版本号-->
