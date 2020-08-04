@@ -30,15 +30,14 @@ import java.util.Date;
 public class FeedRefreshWorker {
 
     @Autowired
-    private  FeedFetcher fetcher;
+    private FeedFetcher fetcher;
 
     private final FeedQueues queues;
-//    @Autowired
-//    private FeedRefreshUpdater feedRefreshUpdater;
-    @Autowired
-    private FeedEntryServiceImpl feedEntryService;
+
     @Autowired
     private final CommaFeedConfiguration config;
+    @Autowired
+    FeedEntryMapper feedEntryMapper;
     private FeedRefreshExecutor pool;
 
 
@@ -47,8 +46,8 @@ public class FeedRefreshWorker {
         this.fetcher = fetcher;
         this.config = config;
         this.queues = queues;
-		int threads = config.getBackgroundThreads();
-		pool = new FeedRefreshExecutor("feedSubscription-refresh-worker", threads, Math.min(20 * threads, 1000) );
+        int threads = config.getBackgroundThreads();
+        pool = new FeedRefreshExecutor("feedSubscription-refresh-worker", threads, Math.min(20 * threads, 1000));
     }
 
 
@@ -74,7 +73,6 @@ public class FeedRefreshWorker {
 
         @Override
         public void run() {
-            System.out.println("123123");
             update(context);
         }
 
@@ -85,21 +83,31 @@ public class FeedRefreshWorker {
     }
 
     private void update(FeedRefreshContext context) {
-        System.out.println("456456");
         FeedSubscription feedSubscription = context.getFeedSubscription();
         int refreshInterval = config.getRefreshIntervalMinutes();
         Date disabledUntil = DateUtils.addMinutes(new Date(), refreshInterval);
         try {
             String url = context.getFeedSubscription().getUrl();
+            //查询单个feed消息
             FetchedFeed fetchedFeed = fetcher.fetch(String.valueOf(feedSubscription.getFeedId()), url, false, null, null,
                     null, null);
             // stops here if NotModifiedException or any other exception is thrown
             List<FeedEntry> entries = fetchedFeed.getEntries();
 
             context.setEntries(entries);
-//            feedRefreshUpdater.updateFeed(context);
-            feedEntryService.saveBatch(entries);
+            //这里如果数据库或者缓存里面数据不存在就入库
 
+
+            for (FeedEntry entry : entries) {
+
+                //这里去数据库里面查询对应的url是否存在
+                int count = feedEntryMapper.findEntryExists(entry);
+                if (count > 0) {
+                    log.info("feed url :{} 已经存在" , entry.getUrl());
+                } else {
+                    feedEntryMapper.insert(entry);
+                }
+            }
 
         } catch (HttpGetter.NotModifiedException e) {
             log.debug("Feed not modified : {} - {}", feedSubscription.getUrl(), e.getMessage());

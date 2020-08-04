@@ -27,7 +27,6 @@ public class FeedRefreshTaskGiver {
     @PostConstruct
     public void helloWorld() {
         System.out.println("helloWorld");
-
         start();
     }
 
@@ -59,6 +58,7 @@ public class FeedRefreshTaskGiver {
                         FeedRefreshContext context = queues.take();
                         if (context != null) {
                             worker.updateFeed(context);
+                            Thread.sleep(5000);
                         } else {
                             log.debug("nothing to do, sleeping for 15s");
                             try {

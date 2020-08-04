@@ -32,11 +32,7 @@ import java.util.stream.Collectors;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class feedTest {
-    @Autowired
-    FeedSubscriptionMapper feedSubscriptionMapper;
 
-    @Autowired
-    IFeedEntryService feedEntryService;
 
     @Autowired
     FeedFetcher fetcher;
@@ -58,7 +54,7 @@ public class feedTest {
     public void testFetcher() throws HttpGetter.NotModifiedException, IOException, FeedException {
 //        FeedSubscription feedSubscription = feedSubscriptionMapper.selectById("1");
         FeedSubscription feedSubscription = new FeedSubscription();
-        feedSubscription.setUrl("https://jiaozongben.github.io/feed.xml");
+        feedSubscription.setUrl("https://www.jiqizhixin.com/rss");
         feedSubscription.setFeedId(1L);
 
         // --------------------

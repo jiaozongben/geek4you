@@ -17,8 +17,10 @@ import org.springframework.stereotype.Component;
 import org.xml.sax.InputSource;
 
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.sql.Blob;
 import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -68,7 +70,7 @@ public class FeedParser {
                 }
 
                 entry.setUrl(FeedUtils.truncate(FeedUtils.toAbsoluteUrl(item.getLink(), feedSubscription.getUrl(), feedUrl), 2048));
-                entry.setContent(getContent(item));
+                entry.setContent(getContent(item).getBytes(Charset.forName("utf-8")));
                 entry.setTitle(getTitle(item));
                 entry.setInserted(LocalDateTime.now());
                 entry.setFeedId(Long.valueOf(feed_id));

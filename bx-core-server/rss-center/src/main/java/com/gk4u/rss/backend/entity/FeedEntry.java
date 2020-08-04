@@ -3,6 +3,7 @@ package com.gk4u.rss.backend.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import java.sql.Blob;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author James Bond
- * @since 2020-08-02
+ * @since 2020-08-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -30,7 +31,7 @@ public class FeedEntry implements Serializable {
 
     private String title;
 
-    private String content;
+    private byte[] content;
 
     private LocalDateTime inserted;
 

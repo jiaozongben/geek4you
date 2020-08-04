@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author James Bond
- * @since 2020-08-02
+ * @since 2020-08-04
  */
 public interface IFeedEntryService extends IService<FeedEntry> {
 
