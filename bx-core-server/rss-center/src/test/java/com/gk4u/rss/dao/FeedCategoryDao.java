@@ -1,23 +1,39 @@
-//package com.gk4u.rss.dao;
-//
-//
+package com.gk4u.rss.dao;
+
+
+import com.gk4u.rss.backend.entity.FeedEntry;
+import com.gk4u.rss.backend.mapper.FeedEntryMapper;
+import com.gk4u.rss.backend.mapper.FeedSubscriptionMapper;
 //import com.gk4u.rss.backendbak.entity.FeedCategory;
 //import com.gk4u.rss.backendbak.entity.User;
 //import com.gk4u.rss.backendbak.mapper.FeedCategoryMapper;
 //import com.gk4u.rss.backendbak.service.IFeedCategoryService;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.context.junit4.SpringRunner;
-//
-//import java.util.List;
-//
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-//public class FeedCategoryDao {
-//
-//
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class FeedCategoryDao {
+
+
+    @Autowired
+    FeedEntryMapper feedEntryMapper;
+
+    @Test
+    public void findcount() {
+        FeedEntry feedEntry = new FeedEntry();
+        feedEntry.setUrl("123");
+        int count = feedEntryMapper.findEntryExists(feedEntry);
+
+        System.out.println("count : " + count);
+
+
+    }
 //    @Autowired
 //    FeedCategoryMapper feedCategoryMapper;
 //    @Autowired
@@ -62,5 +78,5 @@
 //        FeedCategory feedCategory = feedCategoryMapper.findByName(user, parent);
 //        System.out.println(feedCategory.toString());
 //    }
-//
-//}
+
+}

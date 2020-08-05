@@ -38,6 +38,10 @@ public class FeedRefreshWorker {
     private final CommaFeedConfiguration config;
     @Autowired
     FeedEntryMapper feedEntryMapper;
+    @Autowired
+    FeedEntryServiceImpl feedEntryService;
+
+
     private FeedRefreshExecutor pool;
 
 

@@ -29,6 +29,8 @@ spring:
       maximum-pool-size: 20
       connection-test-query: SELECT 1
 
+mybatis-plus:
+  mapper-locations: mapper/*.xml
 
 # CommaFeed settings
 # ------------------

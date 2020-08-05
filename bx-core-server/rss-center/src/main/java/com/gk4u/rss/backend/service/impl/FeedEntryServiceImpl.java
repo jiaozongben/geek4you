@@ -4,11 +4,12 @@ import com.gk4u.rss.backend.entity.FeedEntry;
 import com.gk4u.rss.backend.mapper.FeedEntryMapper;
 import com.gk4u.rss.backend.service.IFeedEntryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author James Bond
@@ -16,5 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FeedEntryServiceImpl extends ServiceImpl<FeedEntryMapper, FeedEntry> implements IFeedEntryService {
+
+
 
 }
