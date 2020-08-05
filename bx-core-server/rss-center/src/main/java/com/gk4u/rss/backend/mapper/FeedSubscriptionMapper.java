@@ -17,9 +17,13 @@ import java.util.List;
  * @since 2020-08-02
  */
 @Component
+@Mapper
 public interface FeedSubscriptionMapper extends BaseMapper<FeedSubscription> {
 
 
     @Select("SELECT * FROM `feed_subscription`;")
     public List<FeedSubscription> findNextUpdatable();
+
+
+
 }
