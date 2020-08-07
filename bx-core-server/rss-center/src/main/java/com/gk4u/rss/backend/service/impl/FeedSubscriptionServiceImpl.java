@@ -22,34 +22,32 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FeedSubscriptionServiceImpl extends ServiceImpl<FeedSubscriptionMapper, FeedSubscription> implements IFeedSubscriptionService {
-//
-//    @Autowired
-//    private   CommaFeedConfiguration config;
-//    @Autowired
-//    private FeedSubscriptionMapper feedSubscriptionMapper;
-//
-//
-//    public FeedSubscription subscribe(User user, String url, String title, FeedCategory category, int position) {
-//
-//        final String pubUrl = config.getPublicUrl();
-//
-//        FeedSubscription feedSubscription = feedSubscriptionMapper.findOrCreate(url);
-//
-//        FeedSubscription sub = feedSubscriptionDAO.findByFeed(user, feedSubscription);
-//        if (sub == null) {
-//            sub = new FeedSubscription();
-//            sub.setFeed(feedSubscription);
-//            sub.setUser(user);
-//        }
-//        sub.setCategory(category);
-//        sub.setPosition(position);
-//        sub.setTitle(FeedUtils.truncate(title, 128));
-//        feedSubscriptionDAO.saveOrUpdate(sub);
-//
-//        queues.add(feedSubscription, false);
-//
-//        return feedSubscription;
-//    }
+
+    @Autowired
+    private CommaFeedConfiguration config;
+    @Autowired
+    private FeedSubscriptionMapper feedSubscriptionMapper;
+
+
+    public FeedSubscription subscribe(User user, String url, String title, FeedCategory category, int position) {
+
+        final String pubUrl = config.getPublicUrl();
+
+        FeedSubscription sub = feedSubscriptionMapper.findByUrl(user, url);
+        if (sub == null) {
+            sub = new FeedSubscription();
+
+        }
+        sub.setUrl(url);
+        sub.setCategoryId(Long.valueOf(category.getId()));
+        sub.setPosition(position);
+
+        sub.setUserId(Long.valueOf(user.getId()));
+        sub.setTitle(FeedUtils.truncate(title, 128));
+        feedSubscriptionMapper.insert(sub);
+
+        return sub;
+    }
 //    public FeedSubscription findOrCreate(String url){};
 
 }

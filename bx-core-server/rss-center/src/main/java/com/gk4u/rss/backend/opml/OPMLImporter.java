@@ -8,25 +8,23 @@ import com.gk4u.rss.backend.service.impl.FeedSubscriptionServiceImpl;
 import com.rometools.opml.feed.opml.Opml;
 import com.rometools.opml.feed.opml.Outline;
 import com.rometools.rome.io.WireFeedInput;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.StringReader;
 import java.util.List;
 
-import static com.sun.corba.se.impl.util.RepositoryId.cache;
-
 
 @Slf4j
 
-
+@Component
 public class OPMLImporter {
 
     @Autowired
-    private FeedCategoryMapper feedCategoryDAO;
+    private FeedCategoryMapper feedCategoryMapper;
     @Autowired
     private FeedSubscriptionServiceImpl feedSubscriptionService;
 
@@ -53,8 +51,8 @@ public class OPMLImporter {
             if (name == null) {
                 name = FeedUtils.truncate(outline.getTitle(), 128);
             }
-//            FeedCategory category = feedCategoryDAO.findByName(user, name);
-            FeedCategory category = null;
+            FeedCategory category = feedCategoryMapper.findByName(user, name);
+
             if (category == null) {
                 if (StringUtils.isBlank(name)) {
                     name = "Unnamed category";
@@ -65,7 +63,7 @@ public class OPMLImporter {
 
                 category.setUserId(Long.valueOf(user.getId()));
                 category.setPosition(position);
-//                feedCategoryDAO.insert(category);
+                feedCategoryMapper.insert(category);
                 log.info("category:{}", category.toString());
             }
 
@@ -82,8 +80,8 @@ public class OPMLImporter {
             }
             // make sure we continue with the import process even if a feedSubscription failed
             try {
-//                feedSubscriptionService.subscribe(user, outline.getXmlUrl(), name, parent, position);
                 log.info("user: {} ,url: {} ,name: {},position: {}", user, outline.getXmlUrl(), name, position);
+                feedSubscriptionService.subscribe(user, outline.getXmlUrl(), name, parent, position);
             } catch (Exception e) {
                 log.error("error while importing {}: {}", outline.getXmlUrl(), e.getMessage());
             }

@@ -19,6 +19,6 @@ import org.apache.ibatis.annotations.Select;
 public interface FeedCategoryMapper extends BaseMapper<FeedCategory> {
 
     @Select("SELECT * FROM `feed_category` \n" +
-            "where user_id = '#{user.id}' and name='#{name}';")
+            "where user_id = #{user.id} and name=#{name};")
     FeedCategory findByName(@Param("user") User user, @Param("name") String name);
 }

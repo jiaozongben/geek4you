@@ -93,7 +93,7 @@ public class FeedRefreshWorker {
         try {
             String url = context.getFeedSubscription().getUrl();
             //查询单个feed消息
-            FetchedFeed fetchedFeed = fetcher.fetch(String.valueOf(feedSubscription.getFeedId()), url, false, null, null,
+            FetchedFeed fetchedFeed = fetcher.fetch(String.valueOf(feedSubscription.getId()), url, false, null, null,
                     null, null);
             // stops here if NotModifiedException or any other exception is thrown
             List<FeedEntry> entries = fetchedFeed.getEntries();
