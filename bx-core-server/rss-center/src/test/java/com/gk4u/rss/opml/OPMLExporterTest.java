@@ -7,6 +7,8 @@ import com.gk4u.rss.backend.entity.User;
 import com.gk4u.rss.backend.opml.OPMLExporter;
 import com.rometools.opml.feed.opml.Opml;
 import com.rometools.opml.feed.opml.Outline;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.WireFeedOutput;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +52,17 @@ public class OPMLExporterTest {
 
         Opml opml = opmlExporter.export(user);
 
-        System.out.println(JSONObject.toJSONString(opml));
+        WireFeedOutput out = new WireFeedOutput();
+        try {
+            String xml = out.outputString(opml);
+            System.out.println(xml);
+//            return xml;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (FeedException e) {
+            e.printStackTrace();
+        }
+//        System.out.println(JSONObject.toJSONString(opml));
     }
 
     private boolean containsCategory(List<Outline> outlines, String category) {
