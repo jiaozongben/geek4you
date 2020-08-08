@@ -24,11 +24,11 @@ public class FeedRefreshTaskGiver {
 
     private ExecutorService executor;
 
-    @PostConstruct
-    public void helloWorld() {
-        System.out.println("helloWorld");
-        start();
-    }
+//    @PostConstruct
+//    public void helloWorld() {
+//        System.out.println("helloWorld");
+//        start();
+//    }
 
     public FeedRefreshTaskGiver() {
         executor = Executors.newFixedThreadPool(1);

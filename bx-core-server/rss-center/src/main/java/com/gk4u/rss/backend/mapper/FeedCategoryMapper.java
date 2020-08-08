@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * <p>
  * Mapper 接口
@@ -21,4 +23,7 @@ public interface FeedCategoryMapper extends BaseMapper<FeedCategory> {
     @Select("SELECT * FROM `feed_category` \n" +
             "where user_id = #{user.id} and name=#{name};")
     FeedCategory findByName(@Param("user") User user, @Param("name") String name);
+
+    @Select("select * from `feed_category` where user_id = #{user.id}")
+    public List<FeedCategory> findAll(@Param("user")User user);
 }

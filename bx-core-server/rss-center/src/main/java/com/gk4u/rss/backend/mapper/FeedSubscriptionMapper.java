@@ -24,9 +24,11 @@ import java.util.List;
 public interface FeedSubscriptionMapper extends BaseMapper<FeedSubscription> {
 
 
-    @Select("SELECT * FROM `feed_subscription`;")
-    public List<FeedSubscription> findNextUpdatable();
+    @Select("SELECT * FROM `feed_subscription` ;")
+    public List<FeedSubscription> findAll();
 
+    @Select("SELECT * FROM `feed_subscription` where user_id=#{user.id};")
+    public List<FeedSubscription> findAllByUser(@Param("user") User user);
 
     @Select("select * from feed_subscription where user_id=#{user.id} and url = #{url}")
     public FeedSubscription findByUrl(@Param("user") User user, @Param("url") String url);

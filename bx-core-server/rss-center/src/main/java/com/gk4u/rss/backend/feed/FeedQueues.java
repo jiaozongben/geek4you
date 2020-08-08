@@ -72,7 +72,7 @@ public class FeedQueues {
         }
 
 
-        List<FeedSubscription> subscriptions = feedSubscriptionMapper.findNextUpdatable();
+        List<FeedSubscription> subscriptions = feedSubscriptionMapper.findAll();
         for (FeedSubscription feedSubscription : subscriptions) {
             contexts.add(new FeedRefreshContext(feedSubscription, false));
         }

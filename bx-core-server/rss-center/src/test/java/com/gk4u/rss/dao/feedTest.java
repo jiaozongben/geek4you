@@ -32,7 +32,11 @@ import java.util.stream.Collectors;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class feedTest {
+    @Autowired
+    FeedSubscriptionMapper feedSubscriptionMapper;
 
+    @Autowired
+    IFeedEntryService feedEntryService;
 
     @Autowired
     FeedFetcher fetcher;
